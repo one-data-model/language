@@ -178,7 +178,7 @@ Properties are used to model elements of state.
 |writeOnly|boolean|yes|Only writes are allowed|
 |observable|boolean|yes| flag to indicate asynchronous notification is available|
 |contentFormat|string|yes|IANA media type string|
-|units|string|yes|UCUM unit code|
+|units|string|yes|[SenML unit][] code|
 |nullable|boolean|yes|indicates a null value is available for this type|
 |encoding|map|yes|applies additional constraints|
 |scaleMinimum|number|yes|lower limit of value in units|
@@ -270,7 +270,7 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 |optional| boolean|yes|defines whether this element is optional in an implementation|
 |include|array|yes|reference to definitions to be included|
 |type|object|yes|reference to a definition to be used as a template for a new definition|
-|units|string|yes|UCUM unit code|
+|units|string|yes|[SenML unit][] code|
 |nullable|boolean|yes|indicates a null value is available for this type|
 |encoding|map|yes|applies additional constraints|
 |scaleMinimum|number|yes|lower limit of value in units|
@@ -438,3 +438,6 @@ Product definitions may set optional defaults and constant values for specific u
 |odmAction|
 |odmEvent|
 |odmData|
+
+
+[SenML unit]: https://www.iana.org/assignments/senml/senml.xhtml#senml-units
