@@ -139,7 +139,7 @@ The odmObject keyword denotes zero or more Object definitions. A object may cont
 
 | Quality | Type | Optional | Description |
 |---|---|---|---|
-|id| integer, string | yes | internal unique identifier for the definition |
+|id| integer | yes | internal unique identifier for the definition |
 |name|string|yes|human readable name|
 |description|string|yes|human readable description|
 |title|string|yes|human readable title to display|
@@ -167,7 +167,7 @@ Properties are used to model elements of state.
 
 | Quality | Type | Optional | Description |
 |---|---|---|---|
-|id| integer, string | yes | internal unique identifier for the definition |
+|id| integer | yes | internal unique identifier for the definition |
 |name|string|yes|human readable name|
 |description|string|yes|human readable description|
 |title|string|yes|human readable title to display|
@@ -211,7 +211,7 @@ Actions are used to model commands and methods which are invoked. Actions have p
 
 | Quality | Type | Optional | Description |
 |---|---|---|---|
-|id| integer, string | yes | internal unique identifier for the definition |
+|id| integer | yes | internal unique identifier for the definition |
 |name|string|yes|human readable name|
 |description|string|yes|human readable description|
 |title|string|yes|human readable title to display|
@@ -236,7 +236,7 @@ Events are used to model asynchronous occurrences that may be communicated proac
 
 | Quality | Type | Optional | Description |
 |---|---|---|---|
-|id| integer, string | yes | internal unique identifier for the definition |
+|id| integer | yes | internal unique identifier for the definition |
 |name|string|yes|human readable name|
 |description|string|yes|human readable description|
 |title|string|yes|human readable title to display|
@@ -263,7 +263,7 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 
 | Quality | Type | Optional | Description |
 |---|---|---|---|
-|id| integer, string | yes | internal unique identifier for the definition |
+|id| integer | yes | internal unique identifier for the definition |
 |name|string|yes|human readable name|
 |description|string|yes|human readable description|
 |title|string|yes|human readable title to display|
@@ -361,7 +361,7 @@ The odmView element provides a composed type that defines a named view which inc
 
 | Quality | Type | Optional | Description |
 |---|---|---|---|
-|id| integer, string | yes | internal unique identifier for the definition |
+|id| integer | yes | internal unique identifier for the definition |
 |name|string|yes|human readable name|
 |description|string|yes|human readable description|
 |title|string|yes|human readable title to display|
@@ -392,7 +392,7 @@ Thing definitions carry semantic meaning, such as a defined refrigerator compart
 
 | Quality | Type | Optional | Description |
 |---|---|---|---|
-|id| integer, string | yes | internal unique identifier for the definition |
+|id| integer | yes | internal unique identifier for the definition |
 |name|string|yes|human readable name|
 |description|string|yes|human readable description|
 |title|string|yes|human readable title to display|
@@ -420,7 +420,7 @@ Product definitions may set optional defaults and constant values for specific u
 
 | Quality | Type | Optional | Description |
 |---|---|---|---|
-|id| integer, string | yes | internal unique identifier for the definition |
+|id| integer | yes | internal unique identifier for the definition |
 |name|string|yes|human readable name|
 |description|string|yes|human readable description|
 |title|string|yes|human readable title to display|
