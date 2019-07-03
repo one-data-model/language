@@ -145,11 +145,11 @@ The odmObject keyword denotes zero or more Object definitions. A object may cont
 |title|string|yes|human readable title to display|
 |optional| boolean|yes|defines whether this element is optional in an implementation|
 |include|array|yes|reference to definitions to be included|
-|type|object|yes|reference to a definition to be used as a template for a new definition|
+| odmType|object|yes|reference to a definition to be used as a template for a new definition|
 
-- Types Object may define or contain
+- odmTypes Object may define or contain
 
-|Type|
+|odmType|
 |---|
 |odmProperty|
 |odmAction|
@@ -310,8 +310,7 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
     "Switch": {
       "odmProperty": {
         "value": {
-          "type": "string",
-          "enum": ["on", "off"]
+          "type": "string"
         }
       },
       "odmAction": {
