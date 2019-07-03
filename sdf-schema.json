@@ -130,18 +130,18 @@
     "thingqualities": {
       "type": "object",
       "properties": {
-        "odmObject": {"$ref": "#/odmObject"},
-        "odmThing": {"$ref": "#/odmThing"},
-        "odmView": {"$ref": "#/odmView"}
+        "odmObject": {"$ref": "#/properties/odmObject"},
+        "odmThing": {"$ref": "#/properties/odmThing"},
+        "odmView": {"$ref": "#/properties/odmView"}
       },
       "additionalProperties": {"$ref": "#/definitions/commonqualities"}
     },
     "productqualities": {
       "type": "object",
       "properties": {
-        "odmObject": {"$ref": "#/odmObject"},
-        "odmThing": {"$ref": "#/odmThing"},
-        "odmView": {"$ref": "#/odmView"}
+        "odmObject": {"$ref": "#/properties/odmObject"},
+        "odmThing": {"$ref": "#/properties/odmThing"},
+        "odmView": {"$ref": "#/properties/odmView"}
       },
       "additionalProperties": {"$ref": "#/definitions/commonqualities"}
     },
@@ -157,10 +157,10 @@
    "objectqualities": {
       "type": "object",
       "properties": {
-        "odmProperty": {"$ref": "#/odmProperty"},
-        "odmAction": {"$ref": "#/odmAction"},
-        "odmEvent": {"$ref": "#/odmEvent"},
-        "odmData": {"$ref": "#/odmData"}
+        "odmProperty": {"$ref": "#/properties/odmProperty"},
+        "odmAction": {"$ref": "#/properties/odmAction"},
+        "odmEvent": {"$ref": "#/properties/odmEvent"},
+        "odmData": {"$ref": "#/properties/odmData"}
       },
       "additionalProperties": {"$ref": "#/definitions/commonqualities"}
     },
