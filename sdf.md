@@ -27,8 +27,7 @@ The JSON format of an SDF definition is described in this document.
     "Switch": {
       "odmProperty": {
         "value": {
-          "type": "string",
-          "enum": ["on", "off"]
+          "type": "string"
         }
       },
       "odmAction": {
@@ -51,12 +50,12 @@ The keyword that defines an information block is "info". It contains a set of ke
 
 Qualities of the information block are shown in the following table.
 
-| Quality | Type | Optional | Description |
+| Quality | Type | Required | Description |
 |---|---|---|---|
-|title|string|no|A short summary to be displayed in search results, etc.|
-|version|string|no|The incremental version of the definition, format TBD|
-|copyright|string|no|Link to text or embedded text containing a copyright notice|
-|license|string|no|Link to text or embedded text containing license terms|
+|title|string| yes|A short summary to be displayed in search results, etc.|
+|version|string| yes|The incremental version of the definition, format TBD|
+|copyright|string|yes|Link to text or embedded text containing a copyright notice|
+|license|string|yes|Link to text or embedded text containing license terms|
 
 ### Definitions block
 
@@ -66,10 +65,10 @@ The namespace declaration is a map containing one or more definitions of short n
 
 The defaultnamespace declaration defines one of the short names in the namespace map to be the default namespace.
 
-| Quality | Type | Optional | Description |
+| Quality | Type | Required | Description |
 |---|---|---|---|
-|namespace|map|yes|Defines short names mapped to namespace URIs, to be used as identifier prefixes|
-|defaultnamespace|string|yes|Identifies one of the prefixes in the namespace map to be used as a default in resolving identifiers|
+|namespace|map|no|Defines short names mapped to namespace URIs, to be used as identifier prefixes|
+|defaultnamespace|string|no|Identifies one of the prefixes in the namespace map to be used as a default in resolving identifiers|
 
 The following example declares a set of namespaces and defines `st` as the default namespace.
 ```
@@ -137,15 +136,14 @@ The odmObject keyword denotes zero or more Object definitions. A object may cont
 
 - Qualities of odmObject
 
-| Quality | Type | Optional | Description |
-|---|---|---|---|
-|id| integer | yes | internal unique identifier for the definition |
-|name|string|yes|human readable name|
-|description|string|yes|human readable description|
-|title|string|yes|human readable title to display|
-|optional| boolean|yes|defines whether this element is optional in an implementation|
-|include|array|yes|reference to definitions to be included|
-| odmType|object|yes|reference to a definition to be used as a template for a new definition|
+| Quality | Type | Required | Description | Default |
+|---|---|---|---|---|
+|id| integer | yes | internal unique identifier for the definition |  N/A |
+|name|string|no|human readable name| N/A |
+|description|string|no|human readable description| N/A |
+|title|string|no|human readable title to display| N/A |
+|include|array|no|reference to definitions to be included| N/A |
+| odmType|object|no|reference to a definition to be used as a template for a new definition|N/A |
 
 - odmTypes Object may define or contain
 
@@ -165,34 +163,33 @@ Properties are used to model elements of state.
 
 - Qualities of odmProperty
 
-| Quality | Type | Optional | Description |
-|---|---|---|---|
-|id| integer | yes | internal unique identifier for the definition |
-|name|string|yes|human readable name|
-|description|string|yes|human readable description|
-|title|string|yes|human readable title to display|
-|optional| boolean|yes|defines whether this element is optional in an implementation|
+| Quality | Type | Required | Description | Default |
+|---|---|---|---|---|
+|id| integer | yes | internal unique identifier for the definition | N/A |
+|name|string|yes|human readable name| N/A |
+|description|string|yes|human readable description| N/A |
+|title|string|yes|human readable title to display| N/A |
 |include|array|yes|reference to definitions to be included|
-|type|object|yes|reference to a definition to be used as a template for a new definition|
-|readOnly|boolean|yes|Only reads are allowed|
-|writeOnly|boolean|yes|Only writes are allowed|
-|observable|boolean|yes| flag to indicate asynchronous notification is available|
-|contentFormat|string|yes|IANA media type string|
-|units|string|yes|[SenML unit][] code|
-|nullable|boolean|yes|indicates a null value is available for this type|
-|encoding|map|yes|applies additional constraints|
-|scaleMinimum|number|yes|lower limit of value in units|
-|scaleMaximum|number|yes|upper limit of value in units|
-|type|string, enum|yes|JSON data type|
-|minimum|number|yes|lower limit of value in the representation format|
-|maximum|number|yes|upper limit of value in the representation format|
-|multipleOf|number|yes|indicates the resolution of the number in representation format|
-|enum|array|yes|enumeration constraint|
-|pattern|string|yes|regular expression to constrain a string pattern|
-|minLength|integer|yes|shortest length string in octets|
-|maxLength|integer|yes|longest length string in octets|
-|default|number, boolean, string|yes|specifies the default value for initialization|
-|const|number, boolean, string|yes|specifies a constant value for a data item or property|
+|type|object|yes|reference to a definition to be used as a template for a new definition| N/A |
+|readOnly|boolean|yes|Only reads are allowed| false |
+|writeOnly|boolean|yes|Only writes are allowed| false |
+|observable|boolean|yes| flag to indicate asynchronous notification is available| true |
+|contentFormat|string|yes|IANA media type string| N/A |
+|units|string|yes|[SenML unit][] code| N/A |
+|nullable|boolean|no|indicates a null value is available for this type| true |
+|encoding|map|no|applies additional constraints| N/A |
+|scaleMinimum|number|no|lower limit of value in units| N/A |
+|scaleMaximum|number| no|upper limit of value in units| N/A |
+|type|string, enum|no|JSON data type| N/A |
+|minimum|number|no|lower limit of value in the representation format| N/A |
+|maximum|number|no|upper limit of value in the representation format| N/A |
+|multipleOf|number|no|indicates the resolution of the number in representation format| N/A |
+|enum|array|no|enumeration constraint| N/A |
+|pattern|string|no|regular expression to constrain a string pattern| N/A |
+|minLength|integer|no|shortest length string in octets| N/A |
+|maxLength|integer|no|longest length string in octets| N/A |
+|default|number, boolean, string|no|specifies the default value for initialization| N/A |
+|const|number, boolean, string|no|specifies a constant value for a data item or property| N/A |
 
 
 - Types Property may define or contain
@@ -209,15 +206,15 @@ Actions are used to model commands and methods which are invoked. Actions have p
 
 - Qualities of odmAction
 
-| Quality | Type | Optional | Description |
+| Quality | Type | Required | Description |
 |---|---|---|---|
-|id| integer | yes | internal unique identifier for the definition |
-|name|string|yes|human readable name|
-|description|string|yes|human readable description|
-|title|string|yes|human readable title to display|
-|optional| boolean|yes|defines whether this element is optional in an implementation|
-|include|array|yes|reference to definitions to be included|
-|type|object|yes|reference to a definition to be used as a template for a new definition|
+|id| integer | no | internal unique identifier for the definition |
+|name|string|no|human readable name|
+|description|string|no|human readable description|
+|title|string|no|human readable title to display|
+|optional| boolean|no|defines whether this element is optional in an implementation|
+|include|array|no|reference to definitions to be included|
+|type|object|no|reference to a definition to be used as a template for a new definition|
 
 - Types Action may define or contain
 
@@ -234,9 +231,9 @@ Events are used to model asynchronous occurrences that may be communicated proac
 
 - Qualities of odmEvent
 
-| Quality | Type | Optional | Description |
+| Quality | Type | Required | Description |
 |---|---|---|---|
-|id| integer | yes | internal unique identifier for the definition |
+|id| integer | no | internal unique identifier for the definition |
 |name|string|yes|human readable name|
 |description|string|yes|human readable description|
 |title|string|yes|human readable title to display|
@@ -261,30 +258,30 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 
 - Qualities of odmData
 
-| Quality | Type | Optional | Description |
+| Quality | Type | Required | Description |
 |---|---|---|---|
-|id| integer | yes | internal unique identifier for the definition |
-|name|string|yes|human readable name|
-|description|string|yes|human readable description|
-|title|string|yes|human readable title to display|
-|optional| boolean|yes|defines whether this element is optional in an implementation|
-|include|array|yes|reference to definitions to be included|
-|type|object|yes|reference to a definition to be used as a template for a new definition|
-|units|string|yes|[SenML unit][] code|
-|nullable|boolean|yes|indicates a null value is available for this type|
-|encoding|map|yes|applies additional constraints|
-|scaleMinimum|number|yes|lower limit of value in units|
-|scaleMaximum|number|yes|upper limit of value in units|
+|id| integer | no | internal unique identifier for the definition |
+|name|string|no|human readable name|
+|description|string|no|human readable description|
+|title|string|no|human readable title to display|
+|optional| boolean|no|defines whether this element is optional in an implementation|
+|include|array|no|reference to definitions to be included|
+|type|object|no|reference to a definition to be used as a template for a new definition|
+|units|string|no|[SenML unit][] code|
+|nullable|boolean|no|indicates a null value is available for this type|
+|encoding|map|no|applies additional constraints|
+|scaleMinimum|number|no|lower limit of value in units|
+|scaleMaximum|number|no|upper limit of value in units|
 |type|string, enum|yes|JSON data type|
-|minimum|number|yes|lower limit of value in the representation format|
-|maximum|number|yes|upper limit of value in the representation format|
-|multipleOf|number|yes|indicates the resolution of the number in representation format|
-|enum|array|yes|enumeration constraint|
-|pattern|string|yes|regular expression to constrain a string pattern|
-|minLength|integer|yes|shortest length string in octets|
-|maxLength|integer|yes|longest length string in octets|
-|default|number, boolean, string|yes|specifies the default value for initialization|
-|const|number, boolean, string|yes|specifies a constant value for a data item or property|
+|minimum|number|no|lower limit of value in the representation format|
+|maximum|number|no|upper limit of value in the representation format|
+|multipleOf|number|no|indicates the resolution of the number in representation format|
+|enum|array|no|enumeration constraint|
+|pattern|string|no|regular expression to constrain a string pattern|
+|minLength|integer|no|shortest length string in octets|
+|maxLength|integer|no|longest length string in octets|
+|default|number, boolean, string|no|specifies the default value for initialization|
+|const|number, boolean, string|no|specifies a constant value for a data item or property|
 
 - Types Data may define or contain
 
@@ -358,14 +355,14 @@ The odmView element provides a composed type that defines a named view which inc
 
 - Qualities of odmView
 
-| Quality | Type | Optional | Description |
+| Quality | Type | Required | Description |
 |---|---|---|---|
-|id| integer | yes | internal unique identifier for the definition |
-|name|string|yes|human readable name|
-|description|string|yes|human readable description|
-|title|string|yes|human readable title to display|
-|optional| boolean|yes|defines whether this element is optional in an implementation|
-|include|array|yes|reference to definitions to be included in the view|
+|id| integer | no | internal unique identifier for the definition |
+|name|string|no|human readable name|
+|description|string|no|human readable description|
+|title|string|no|human readable title to display|
+|optional| boolean|no|defines whether this element is optional in an implementation|
+|include|array|no|reference to definitions to be included in the view|
 
 
 - Types odmView may define or contain
@@ -389,15 +386,15 @@ Thing definitions carry semantic meaning, such as a defined refrigerator compart
 
 - Qualities of odmThing
 
-| Quality | Type | Optional | Description |
+| Quality | Type | Required | Description |
 |---|---|---|---|
-|id| integer | yes | internal unique identifier for the definition |
-|name|string|yes|human readable name|
-|description|string|yes|human readable description|
-|title|string|yes|human readable title to display|
-|optional| boolean|yes|defines whether this element is optional in an implementation|
-|include|array|yes|reference to definitions to be included|
-|type|object|yes|reference to a definition to be used as a template for a new definition|
+|id| integer | no | internal unique identifier for the definition |
+|name|string|no|human readable name|
+|description|string|no|human readable description|
+|title|string|no|human readable title to display|
+|optional| boolean|no|defines whether this element is optional in an implementation|
+|include|array|no|reference to definitions to be included|
+|type|object|no|reference to a definition to be used as a template for a new definition|
 
 - Types odmThing may define or contain
 
@@ -417,13 +414,13 @@ Product definitions may set optional defaults and constant values for specific u
 
 - Qualities of odmProduct
 
-| Quality | Type | Optional | Description |
+| Quality | Type | Required | Description |
 |---|---|---|---|
-|id| integer | yes | internal unique identifier for the definition |
-|name|string|yes|human readable name|
-|description|string|yes|human readable description|
-|title|string|yes|human readable title to display|
-|include|string|yes|reference to a definition to be included|
+|id| integer | no | internal unique identifier for the definition |
+|name|string|no|human readable name|
+|description|string|no|human readable description|
+|title|string|no|human readable title to display|
+|include|string|no|reference to a definition to be included|
 
 
 - Types odmProduct may define or contain
