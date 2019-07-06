@@ -127,10 +127,15 @@
           },
           "minitems": 1
         },
-        "optional": {
-          "type": "boolean"
+        "required": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minitems": 1
         }
-      }
+      },
+      "required": ["id"]
     },
 
     "thingqualities": {
@@ -175,7 +180,9 @@
           "properties": {
             "isDefaultView": {
               "type": "boolean"
-            }
+            },
+            "odmObject": {"$ref": "#/properties/odmObject"},
+            "odmThing": {"$ref": "#/properties/odmThing"}
           }
         }
       ]
@@ -189,6 +196,7 @@
         {
           "type": "object",
           "properties": {
+            "odmObject": {"$ref": "#/properties/odmObject"},
             "odmProperty": {"$ref": "#/properties/odmProperty"},
             "odmAction": {"$ref": "#/properties/odmAction"},
             "odmEvent": {"$ref": "#/properties/odmEvent"},
