@@ -1,4 +1,7 @@
 {
+  "title": "SDF Schema",
+  "description": "JSON Schema for validating SDF instances against the SDF model.",
+  "$schema ": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
     "info": {
@@ -28,6 +31,7 @@
     "defaultnamespace": {
       "type": "string"
     },
+    
     "odmThing": {
       "description": "Thing is a composition of objects that work together in some way",
       "type": "object",
@@ -85,6 +89,7 @@
       }
     }
   },
+
   "definitions": {
     "commonqualities": {
       "type": "object",
@@ -101,7 +106,7 @@
         "name": {
           "type": "string"
         },
-        "type": {
+        "odmType": {
           "type": "object",
           "properties": {
             "$ref": {
@@ -127,99 +132,125 @@
         }
       }
     },
+
     "thingqualities": {
-      "type": "object",
-      "properties": {
-        "odmObject": {"$ref": "#/properties/odmObject"},
-        "odmThing": {"$ref": "#/properties/odmThing"},
-        "odmView": {"$ref": "#/properties/odmView"}
-      },
-      "additionalProperties": {"$ref": "#/definitions/commonqualities"}
-    },
-    "productqualities": {
-      "type": "object",
-      "properties": {
-        "odmObject": {"$ref": "#/properties/odmObject"},
-        "odmThing": {"$ref": "#/properties/odmThing"},
-        "odmView": {"$ref": "#/properties/odmView"}
-      },
-      "additionalProperties": {"$ref": "#/definitions/commonqualities"}
-    },
-    "viewqualities": {
-      "type": "object",
-      "properties": {
-        "isDefaultView": {
-          "type": "boolean"
-        }
-      },
-      "additionalProperties": {"$ref": "#/definitions/commonqualities"}
-    },
-   "objectqualities": {
-      "type": "object",
-      "properties": {
-        "odmProperty": {"$ref": "#/properties/odmProperty"},
-        "odmAction": {"$ref": "#/properties/odmAction"},
-        "odmEvent": {"$ref": "#/properties/odmEvent"},
-        "odmData": {"$ref": "#/properties/odmData"}
-      },
-      "additionalProperties": {"$ref": "#/definitions/commonqualities"}
-    },
-    "propertyqualities": {
-      "type": "object",
-      "properties": {
-      },
-      "additionalProperties": {
-        "$ref": "#/definitions/dataqualities",
-        "$ref": "#/definitions/commonqualities"
-      }
-    },
-    "actionqualities": {
-      "type": "object",
-      "properties": {
-      },
-      "additionalProperties": {"$ref": "#/definitions/commonqualities"}
-    },
-    "eventqualities": {
-      "type": "object",
-      "properties": {
-      },
-      "additionalProperties": {"$ref": "#/definitions/commonqualities"}
-    },
-    "dataqualities": {
-      "type": "object",
-      "properties": {
-        "units": {
-          "type": "string"
+      "allOf": [
+        {
+          "$ref": "#/definitions/commonqualities"
         },
-        "scaleMinimum": {
-          "type": "number"
-        },
-        "scaleMaximum": {
-          "type": "number"
-        },
-        "observable": {
-          "type": "boolean"
-        },
-        "nullable": {
-          "type": "boolean"
-        },
-        "encoding": {
+        {
           "type": "object",
           "properties": {
-            "widthInBits": {
-              "type": "number"
+            "odmObject": {"$ref": "#/properties/odmObject"},
+            "odmThing": {"$ref": "#/properties/odmThing"},
+            "odmView": {"$ref": "#/properties/odmView"}
+          }
+        }
+      ]
+    },
+
+    "productqualities": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/commonqualities"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "odmObject": {"$ref": "#/properties/odmObject"},
+            "odmThing": {"$ref": "#/properties/odmThing"},
+            "odmView": {"$ref": "#/properties/odmView"}
+          }
+        }
+      ]
+    },
+
+    "viewqualities": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/commonqualities"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "isDefaultView": {
+              "type": "boolean"
             }
           }
-        },
-        "contentFormat": {
-          "type": "string"
         }
-      },
-      "additionalProperties": {
-        "$ref": "#/definitions/jsonschema",
-        "$ref": "#/definitions/commonqualities"
-      }
+      ]
     },
+
+    "objectqualities": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/commonqualities"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "odmProperty": {"$ref": "#/properties/odmProperty"},
+            "odmAction": {"$ref": "#/properties/odmAction"},
+            "odmEvent": {"$ref": "#/properties/odmEvent"},
+            "odmData": {"$ref": "#/properties/odmData"}
+          }
+        }
+      ]
+    },
+
+    "propertyqualities": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/dataqualities"
+        }
+      ]
+    },
+
+    "actionqualities": {
+      "$ref": "#/definitions/commonqualities"
+    },
+
+    "eventqualities": {
+      "$ref": "#/definitions/commonqualities"
+    },
+
+    "dataqualities": {
+      "allOf": [
+        {
+          "$ref":"#/definitions/commonqualities"
+        },
+        {
+          "$ref":"#/definitions/jsonschema"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "units": {
+              "type": "string"
+            },
+            "scaleMinimum": {
+              "type": "number"
+            },
+            "scaleMaximum": {
+              "type": "number"
+            },
+            "observable": {
+              "type": "boolean"
+            },
+            "nullable": {
+              "type": "boolean"
+            },
+            "widthInBits": {
+              "type": "number"
+            },
+            "contentFormat": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+
     "jsonschema": {
       "type": "object",
       "properties": {
