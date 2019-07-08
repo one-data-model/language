@@ -166,16 +166,16 @@ Properties are used to model elements of state.
 | Quality | Type | Required | Description | Default |
 |---|---|---|---|---|
 |id| integer | yes | internal unique identifier for the definition | N/A |
-|name|string|yes|human readable name| N/A |
-|description|string|yes|human readable description| N/A |
-|title|string|yes|human readable title to display| N/A |
-|include|array|yes|reference to definitions to be included|
-|type|object|yes|reference to a definition to be used as a template for a new definition| N/A |
-|readOnly|boolean|yes|Only reads are allowed| false |
-|writeOnly|boolean|yes|Only writes are allowed| false |
-|observable|boolean|yes| flag to indicate asynchronous notification is available| true |
-|contentFormat|string|yes|IANA media type string| N/A |
-|units|string|yes|[SenML unit][] code| N/A |
+|name|string|no|human readable name| N/A |
+|description|string|no|human readable description| N/A |
+|title|string|no|human readable title to display| N/A |
+|include|array|no|reference to definitions to be included|
+|type|object|no|reference to a definition to be used as a template for a new definition| N/A |
+|readOnly|boolean|no|Only reads are allowed| false |
+|writeOnly|boolean|no|Only writes are allowed| false |
+|observable|boolean|no| flag to indicate asynchronous notification is available| true |
+|contentFormat|string|no|IANA media type string| N/A |
+|units|string|no|[SenML unit][] code| N/A |
 |nullable|boolean|no|indicates a null value is available for this type| true |
 |encoding|map|no|applies additional constraints| N/A |
 |scaleMinimum|number|no|lower limit of value in units| N/A |
@@ -208,7 +208,7 @@ Actions are used to model commands and methods which are invoked. Actions have p
 
 | Quality | Type | Required | Description |
 |---|---|---|---|
-|id| integer | no | internal unique identifier for the definition |
+|id| integer | yes | internal unique identifier for the definition |
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
@@ -233,13 +233,13 @@ Events are used to model asynchronous occurrences that may be communicated proac
 
 | Quality | Type | Required | Description |
 |---|---|---|---|
-|id| integer | no | internal unique identifier for the definition |
-|name|string|yes|human readable name|
-|description|string|yes|human readable description|
-|title|string|yes|human readable title to display|
-|optional| boolean|yes|defines whether this element is optional in an implementation|
-|include|array|yes|reference to definitions to be included|
-|type|object|yes|reference to a definition to be used as a template for a new definition|
+|id| integer | yes | internal unique identifier for the definition |
+|name|string|no|human readable name|
+|description|string|no|human readable description|
+|title|string|no|human readable title to display|
+|optional| boolean|no|defines whether this element is optional in an implementation|
+|include|array|no|reference to definitions to be included|
+|type|object|no|reference to a definition to be used as a template for a new definition|
 
 - Types Event may define or contain
 
@@ -260,7 +260,7 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 
 | Quality | Type | Required | Description |
 |---|---|---|---|
-|id| integer | no | internal unique identifier for the definition |
+|id| integer | yes | internal unique identifier for the definition |
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
@@ -357,7 +357,7 @@ The odmView element provides a composed type that defines a named view which inc
 
 | Quality | Type | Required | Description |
 |---|---|---|---|
-|id| integer | no | internal unique identifier for the definition |
+|id| integer | yes | internal unique identifier for the definition |
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
@@ -388,7 +388,7 @@ Thing definitions carry semantic meaning, such as a defined refrigerator compart
 
 | Quality | Type | Required | Description |
 |---|---|---|---|
-|id| integer | no | internal unique identifier for the definition |
+|id| integer | yes | internal unique identifier for the definition |
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
@@ -416,7 +416,7 @@ Product definitions may set optional defaults and constant values for specific u
 
 | Quality | Type | Required | Description |
 |---|---|---|---|
-|id| integer | no | internal unique identifier for the definition |
+|id| integer | yes | internal unique identifier for the definition |
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
