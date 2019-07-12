@@ -277,7 +277,7 @@
           "type": "array",
           "items": {
             "type": "object",
-            "additionalPrperties": {
+            "additionalProperties": {
               "type": "number"
             },
             "minitems": 1
