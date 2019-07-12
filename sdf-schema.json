@@ -274,7 +274,14 @@
           ]
         },
         "enum": {
-          "type": "array"
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalPrperties": {
+              "type": "number"
+            },
+            "minitems": 1
+          }
         },
         "const": {
           "oneOf": [
