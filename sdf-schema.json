@@ -251,6 +251,10 @@
             "widthInBits": {
               "type": "number"
             },
+            "subtype":{
+              "type": "string",
+              "enum": ["bytestring", "unixtime"]
+            },
             "contentFormat": {
               "type": "string"
             }
@@ -305,6 +309,26 @@
         },
         "pattern": {
           "type": "string"
+        },
+        "format": {
+          "type": "string",
+          "enum": [
+            "date-time",
+            "date",
+            "time",
+            "email",
+            "idn-email",
+            "hostname",
+            "idn-hostname",
+            "uri",
+            "uri-reference",
+            "iri",
+            "iri-reference",
+            "uri-template",
+            "json-pointer",
+            "relative-json-pointer",
+            "regex"
+          ]
         },
         "minimum": {
           "type": "number"
