@@ -20,7 +20,8 @@
           "type": "string"
         }
       },
-      "required": ["title", "version", "copyright", "license"]
+      "required": ["title", "version", "copyright", "license"],
+      "additionalProperties": false
     },
     "namespace": {
       "type": "object",
@@ -111,7 +112,8 @@
           "properties": {
             "$ref": {
               "type": "string"
-            }            
+            },
+          "additionalProperties": false        
           }
         },
         "include": {
@@ -122,7 +124,8 @@
             "properties": {
               "$ref": {
                   "type": "string"
-              }            
+              },
+            "additionalProperties": false     
             }
           },
           "minitems": 1
