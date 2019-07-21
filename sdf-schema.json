@@ -270,7 +270,8 @@
             "boolean",
             "integer",
             "array",
-            "object"
+            "object",
+            "bytestring"
           ]
         },
         "enum": {
