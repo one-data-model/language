@@ -1,7 +1,7 @@
 {
   "title": "SDF Schema",
   "description": "JSON Schema for validating SDF instances against the SDF model.",
-  "$schema ": "http://json-schema.org/draft-07/schema#",
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
     "info": {
@@ -20,7 +20,8 @@
           "type": "string"
         }
       },
-      "required": []
+      "required": ["title", "version", "copyright", "license"],
+      "additionalProperties": false
     },
     "namespace": {
       "type": "object",
@@ -111,7 +112,8 @@
           "properties": {
             "$ref": {
               "type": "string"
-            }            
+            },
+          "additionalProperties": false        
           }
         },
         "include": {
@@ -122,7 +124,8 @@
             "properties": {
               "$ref": {
                   "type": "string"
-              }            
+              },
+            "additionalProperties": false     
             }
           },
           "minitems": 1
@@ -251,6 +254,10 @@
             "widthInBits": {
               "type": "number"
             },
+            "subtype":{
+              "type": "string",
+              "enum": ["bytestring", "unixtime"]
+            },
             "contentFormat": {
               "type": "string"
             }
@@ -305,6 +312,26 @@
         },
         "pattern": {
           "type": "string"
+        },
+        "format": {
+          "type": "string",
+          "enum": [
+            "date-time",
+            "date",
+            "time",
+            "email",
+            "idn-email",
+            "hostname",
+            "idn-hostname",
+            "uri",
+            "uri-reference",
+            "iri",
+            "iri-reference",
+            "uri-template",
+            "json-pointer",
+            "relative-json-pointer",
+            "regex"
+          ]
         },
         "minimum": {
           "type": "number"
