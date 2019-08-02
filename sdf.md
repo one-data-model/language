@@ -160,7 +160,7 @@ The odmObject keyword denotes zero or more Object definitions. A object may cont
 |title|string|no|human readable title to display| N/A |
 |include|array|no|list of references to definitions to be included| N/A |
 | odmType|object|no|reference to a definition to be used as a template for a new definition|N/A |
-| required | array | no | list of required items in a valid definition | none |
+| required | array | no | list of required items in a valid definition | N/A |
 
 - odmTypes Object may define or contain
 
@@ -186,6 +186,7 @@ Properties are used to model elements of state.
 |name|string|no|human readable name| N/A |
 |description|string|no|human readable description| N/A |
 |title|string|no|human readable title to display| N/A |
+| required | array | no | list of required items in a valid definition | N/A |
 |include|array|no|reference to definitions to be included|
 |odmType|object|no|reference to a definition to be used as a template for a new definition| N/A |
 |readOnly|boolean|no|Only reads are allowed| false |
@@ -361,14 +362,12 @@ The requirements for high level composition include the following:
 
 ### Paths in the model namespaces
 
-The model namespace is organized according to terms that are defined in the definition files that are loaded into the namespace. For example, definitions that originate from an organization or vendor are expected to be in a namespace that is specific to that organization or vendor.
+The model namespace is organized according to terms that are defined in the definition files that are present in the namespace. For example, definitions that originate from an organization or vendor are expected to be in a namespace that is specific to that organization or vendor. There is expecred to be an ODM namespace for common ODM definitions.
 
-The structure of a path in a namespace is defined by the JSON Pointers to the definitions in each file. For example, if there is a file defining an object "Switch" with an action "on", then the external reference to the action would be "ns:/odmObject/Switch/odmAction/on" where ns is the short name fpr the namespace prefix.
+The structure of a path in a namespace is defined by the JSON Pointers to the definitions in the files in that namespace. For example, if there is a file defining an object "Switch" with an action "on", then the reference to the action would be "ns:/odmObject/Switch/odmAction/on" where ns is the short name for the namespace prefix.
 
-A reference within the "Switch" object could simply use "on" according to the identifier resolution precedence rules.
-
-### Re-use and Recursion
-Re-use of definitions enables an existing definition (could be in the same file or another file) to become part of a new definition by including a reference to the existing definition within the model namespace. There are currently considered three cases for reuse of definitions. The semantics are similar to those of typed links.
+### Modular Composition
+Modular composition of definitions enables an existing definition (could be in the same file or another file) to become part of a new definition by including a reference to the existing definition within the model namespace. 
 
 #### Use of the "odmType" keyword to re-use a definition
 An existing definition may be used as a template for a new definition, that is, a new definition is created in the target namespace which uses the defined qualities of some existing definition. This pattern will use the keyword "odmType" as a quality of a new definition with a value consisting of a reference to the existing definition that is to be used as a template. Optionally, new qualities may be added and values of optional qualities and quality values may be defined.
@@ -378,7 +377,7 @@ An existing definition may be used, with its name and its path in the model name
 
 ### odmView
 
-The odmView element provides a composed type that defines a named view which includes one or more instances of odmThing, odmObject, odmProperty, odmEvent, or odmAction.
+The odmView element provides a composed type that defines a named view, and which uses the include keyword to populate the view with one or more instances of odmThing, odmObject, odmProperty, odmEvent, or odmAction. 
 
 - Qualities of odmView
 
