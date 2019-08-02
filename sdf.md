@@ -135,7 +135,7 @@ Would be expanded into:
 
 ### Target namespace
 
-The target namespace is the namespace into which the defined terms are added. The target namespace is defined by the default namespace, or by an explicit prefix on the identifier using semicolon ":".
+The target namespace is the namespace into which the defined terms are added. The target namespace is defined by the default namespace, or by an explicit prefix on the identifier using a colon ":".
 
 For example if the default namespace in the example above is "foo", then you could use "temperatureData" to refer to the property defined at the URI:
 ```
@@ -192,6 +192,8 @@ Properties are used to model elements of state.
 |writeOnly|boolean|no|Only writes are allowed| false |
 |observable|boolean|no| flag to indicate asynchronous notification is available| true |
 |contentFormat|string|no|IANA media type string| N/A |
+|subtype|string|no|subtype enumeration|N/A|
+|widthInBits|integer|no|hint for protocol binding| N/A|
 |units|string|no|[SenML unit][] code| N/A |
 |nullable|boolean|no|indicates a null value is available for this type| true |
 |scaleMinimum|number|no|lower limit of value in units| N/A |
@@ -202,6 +204,7 @@ Properties are used to model elements of state.
 |multipleOf|number|no|indicates the resolution of the number in representation format| N/A |
 |enum|array|no|enumeration constraint| N/A |
 |pattern|string|no|regular expression to constrain a string pattern| N/A |
+|format|string|no|JSON Schema formats| N/A|
 |minLength|integer|no|shortest length string in octets| N/A |
 |maxLength|integer|no|longest length string in octets| N/A |
 |default|number, boolean, string|no|specifies the default value for initialization| N/A |
@@ -283,6 +286,8 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 | required | array | no | list of required items in a valid definition | none |
 |include|array|no|reference to definitions to be included|
 |type|object|no|reference to a definition to be used as a template for a new definition|
+|subtype|string|no|subtype enumeration|N/A|
+|widthInBits|integer|no|hint for protocol binding| N/A|
 |units|string|no|[SenML unit][] code|
 |nullable|boolean|no|indicates a null value is available for this type|
 |scaleMinimum|number|no|lower limit of value in units|
@@ -293,6 +298,7 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 |multipleOf|number|no|indicates the resolution of the number in representation format|
 |enum|array of map containing {string:number}|no|enumeration constraint|
 |pattern|string|no|regular expression to constrain a string pattern|
+|format|string|no|JSON Schema formats| N/A|
 |minLength|integer|no|shortest length string in octets|
 |maxLength|integer|no|longest length string in octets|
 |default|number, boolean, string|no|specifies the default value for initialization|
