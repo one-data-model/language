@@ -187,7 +187,7 @@ Properties are used to model elements of state.
 |description|string|no|human readable description| N/A |
 |title|string|no|human readable title to display| N/A |
 |include|array|no|reference to definitions to be included|
-|type|object|no|reference to a definition to be used as a template for a new definition| N/A |
+|odmType|object|no|reference to a definition to be used as a template for a new definition| N/A |
 |readOnly|boolean|no|Only reads are allowed| false |
 |writeOnly|boolean|no|Only writes are allowed| false |
 |observable|boolean|no| flag to indicate asynchronous notification is available| true |
@@ -230,7 +230,7 @@ Actions are used to model commands and methods which are invoked. Actions have p
 |title|string|no|human readable title to display|
 | required | array | no | list of required items in a valid definition | none |
 |include|array|no|reference to definitions to be included|
-|type|object|no|reference to a definition to be used as a template for a new definition|
+|odmType|object|no|reference to a definition to be used as a template for a new definition|
 
 - odmTypes Action may define or contain
 
@@ -255,7 +255,7 @@ Events are used to model asynchronous occurrences that may be communicated proac
 |title|string|no|human readable title to display|
 | required | array | no | list of required items in a valid definition | none |
 |include|array|no|reference to definitions to be included|
-|type|object|no|reference to a definition to be used as a template for a new definition|
+|odmType|object|no|reference to a definition to be used as a template for a new definition|
 
 - odmTypes Event may define or contain
 
@@ -282,7 +282,7 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 |title|string|no|human readable title to display|
 | required | array | no | list of required items in a valid definition | none |
 |include|array|no|reference to definitions to be included|
-|type|object|no|reference to a definition to be used as a template for a new definition|
+|odmType|object|no|reference to a definition to be used as a template for a new definition|
 |units|string|no|[SenML unit][] code|
 |nullable|boolean|no|indicates a null value is available for this type|
 |scaleMinimum|number|no|lower limit of value in units|
