@@ -152,8 +152,9 @@ The odmObject keyword denotes zero or more Object definitions. A object may cont
 |name|string|no|human readable name| N/A |
 |description|string|no|human readable description| N/A |
 |title|string|no|human readable title to display| N/A |
-|include|array|no|reference to definitions to be included| N/A |
+|include|array|no|list of references to definitions to be included| N/A |
 | odmType|object|no|reference to a definition to be used as a template for a new definition|N/A |
+| required | array | no | list of required items in a valid definition | none |
 
 - odmTypes Object may define or contain
 
@@ -202,9 +203,9 @@ Properties are used to model elements of state.
 |const|number, boolean, string|no|specifies a constant value for a data item or property| N/A |
 
 
-- Types Property may define or contain
+- odmTypes Property may define or contain
 
-|Type|
+|odmType|
 |---|
 |odmData|
 
@@ -222,13 +223,13 @@ Actions are used to model commands and methods which are invoked. Actions have p
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
-|optional| boolean|no|defines whether this element is optional in an implementation|
+| required | array | no | list of required items in a valid definition | none |
 |include|array|no|reference to definitions to be included|
 |type|object|no|reference to a definition to be used as a template for a new definition|
 
-- Types Action may define or contain
+- odmTypes Action may define or contain
 
-|Type|
+|odmType|
 |---|
 |odmData|
 
@@ -247,13 +248,13 @@ Events are used to model asynchronous occurrences that may be communicated proac
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
-|optional| boolean|no|defines whether this element is optional in an implementation|
+| required | array | no | list of required items in a valid definition | none |
 |include|array|no|reference to definitions to be included|
 |type|object|no|reference to a definition to be used as a template for a new definition|
 
-- Types Event may define or contain
+- odmTypes Event may define or contain
 
-|Type|
+|odmType|
 |---|
 |odmData|
 
@@ -274,7 +275,7 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
-|optional| boolean|no|defines whether this element is optional in an implementation|
+| required | array | no | list of required items in a valid definition | none |
 |include|array|no|reference to definitions to be included|
 |type|object|no|reference to a definition to be used as a template for a new definition|
 |units|string|no|[SenML unit][] code|
@@ -293,11 +294,11 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 |default|number, boolean, string|no|specifies the default value for initialization|
 |const|number, boolean, string|no|specifies a constant value for a data item or property|
 
-- Types Data may define or contain
+- odmTypes Data may define or contain
 
-|Type|
+|odmType|
 |---|
-|JSON Schema Types with numeric constraint extensions|
+|(JSON Schema Types with numeric constraint extensions)|
 
 
 ## Example Simple Object Definition:
@@ -353,8 +354,8 @@ A reference within the "Switch" object could simply use "on" according to the id
 ### Re-use and Recursion
 Re-use of definitions enables an existing definition (could be in the same file or another file) to become part of a new definition by including a reference to the existing definition within the model namespace. There are currently considered three cases for reuse of definitions. The semantics are similar to those of typed links.
 
-#### Use of the "type" keyword to re-use a definition
-An existing definition may be used as a template for a new definition, that is, a new definition is created in the target namespace which uses the defined qualities of some existing definition. This pattern will use the keyword "type" as a quality of a new definition with a value consisting of a reference to the existing definition that is to be used as a template. Optionally, new qualities may be added and values of optional qualities and quality values may be defined.
+#### Use of the "odmType" keyword to re-use a definition
+An existing definition may be used as a template for a new definition, that is, a new definition is created in the target namespace which uses the defined qualities of some existing definition. This pattern will use the keyword "odmType" as a quality of a new definition with a value consisting of a reference to the existing definition that is to be used as a template. Optionally, new qualities may be added and values of optional qualities and quality values may be defined.
 
 #### The "include" keyword
 An existing definition may be used, with its name and its path in the model namespace, as virtual element in a new definition. This has the effect of linking to an instance when the model is deployed as run time. This pattern is useful to link properties, actions, and events from one object to another object, or to link objects together in a complex thing definition. This, aling with named views, supports modeling of the OCF "interface type" feature denoted by the "if" query parameter.
@@ -371,13 +372,13 @@ The odmView element provides a composed type that defines a named view which inc
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
-|optional| boolean|no|defines whether this element is optional in an implementation|
+| required | array | no | list of required items in a valid definition | none |
 |include|array|no|reference to definitions to be included in the view|
 
 
-- Types odmView may define or contain
+- odmTypes odmView may define or contain
 
-|Type|
+|odmType|
 |---|
 |odmThing|
 |odmObject|
@@ -402,13 +403,13 @@ Thing definitions carry semantic meaning, such as a defined refrigerator compart
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
-|optional| boolean|no|defines whether this element is optional in an implementation|
+| required | array | no | list of required items in a valid definition | none |
 |include|array|no|reference to definitions to be included|
-|type|object|no|reference to a definition to be used as a template for a new definition|
+|odmType|object|no|reference to a definition to be used as a template for a new definition|
 
-- Types odmThing may define or contain
+- odmTypes odmThing may define or contain
 
-|Type|
+|odmType|
 |---|
 |odmView|
 |odmThing|
@@ -430,12 +431,13 @@ Product definitions may set optional defaults and constant values for specific u
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
+| required | array | no | list of required items in a valid definition | none |
 |include|string|no|reference to a definition to be included|
 
 
-- Types odmProduct may define or contain
+- odmTypes odmProduct may define or contain
 
-|Type|
+|odmType|
 |---|
 |odmThing|
 |odmView|
