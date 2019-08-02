@@ -102,29 +102,39 @@ For example, an Object definition looks like this:
 ```
 An Object "foo" is defined in the default namespace, with an ID of 3001, containing a property "foo.bar", with an ID of 5150 and of type boolean.
 
-## Scope of Identifiers
-### Namespace resolution order:
-1. identifiers with an explicit namespace prefix
-2. keywords and quality names in the ODM and JSON Schema namespaces, defined in
-the JSON Schema for SDF
-3. identifier defined in the same (local) block
-4. identifier defined in the next closest enclosing block recursively
-5. identifier defined in the file
-6. identifier defined in the default namespace
+## Identifier name resolution
+### $ref and JSON Pointer
+Name references in SDF are resolved using JSON Pointer. That is, every name reference is the value of a "$ref" statement and includes a JSON Pointer reference. For example, this reference :
+```
+"temperatureProperty": {
+  "$ref": "#/odmData/temperatureData"
+}
+```
+### Namespace Prefix
 
-### Identifier name expansion from JSON path
-
-When a type is defined, the identifier is internally prefixed with the JSON path that locates the definition in the file.
-
-Types defined at the top level in the file go into the namespace at the root level.
-
-Types defined within another definition are prefixed with the path to the enclosing definition. For example, if there is an Object "foo" defined, and a definition for "bar" with Object foo, the path to bar will be "/odmObject/foo/odmProperty/bar" within the default namespace.
+Compact URI, or CURI, notation may be used to refer to definitions in another namespace. Names are resolved by expanding the prefix using the value for that prefix which is defined in the "namespace" section. For example, if a namespace prefix is defined:
+```
+"namespace": {
+  "foo": "https://example.com/#"
+}
+```
+Then a reference to that namespace:
+```
+"foo:temperatureData"
+```
+Would be expanded into:
+```
+"https://example.com/#temperatureData"
+```
 
 ### Target namespace
 
-The target namespace is the namespace into which the defined terms are added. The target namespace is defined by the default namespace, or by an explicit prefix on the identifier separated by a semicolon ":".
+The target namespace is the namespace into which the defined terms are added. The target namespace is defined by the default namespace, or by an explicit prefix on the identifier using semicolon ":".
 
-For example if the default namespace in the example above is "baz", then you could refer to "baz:foo.bar" to point to the property defined by the "bar" definition.
+For example if the default namespace in the example above is "foo", then you could use "temperatureData" to refer to the property defined at the URI:
+```
+https://example.com/#temperatureData
+```
 
 ## Keywords for type definitions
 
