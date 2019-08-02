@@ -25,14 +25,20 @@ The JSON format of an SDF definition is described in this document.
   "defaultNamespace": "st",
   "odmObject": {
     "Switch": {
+      "id":0,
       "odmProperty": {
         "value": {
+        "id":1,
           "type": "string"
+          "enum": [
+            { "on":1 },
+            { "off":0 }
+          ]
         }
       },
       "odmAction": {
-        "on": {},
-        "off": {}
+        "on": {"id":3},
+        "off": {"id":4}
       }
     }
   }
@@ -188,7 +194,6 @@ Properties are used to model elements of state.
 |contentFormat|string|no|IANA media type string| N/A |
 |units|string|no|[SenML unit][] code| N/A |
 |nullable|boolean|no|indicates a null value is available for this type| true |
-|encoding|map|no|applies additional constraints| N/A |
 |scaleMinimum|number|no|lower limit of value in units| N/A |
 |scaleMaximum|number| no|upper limit of value in units| N/A |
 |type|string, enum|no|JSON data type| N/A |
@@ -280,14 +285,13 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 |type|object|no|reference to a definition to be used as a template for a new definition|
 |units|string|no|[SenML unit][] code|
 |nullable|boolean|no|indicates a null value is available for this type|
-|encoding|map|no|applies additional constraints|
 |scaleMinimum|number|no|lower limit of value in units|
 |scaleMaximum|number|no|upper limit of value in units|
 |type|string, enum|yes|JSON data type|
 |minimum|number|no|lower limit of value in the representation format|
 |maximum|number|no|upper limit of value in the representation format|
 |multipleOf|number|no|indicates the resolution of the number in representation format|
-|enum|array|no|enumeration constraint|
+|enum|array of map containing {string:number}|no|enumeration constraint|
 |pattern|string|no|regular expression to constrain a string pattern|
 |minLength|integer|no|shortest length string in octets|
 |maxLength|integer|no|longest length string in octets|
@@ -316,14 +320,20 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
   "defaultNamespace": "st",
   "odmObject": {
     "Switch": {
+      "id":0,
       "odmProperty": {
         "value": {
+        "id":1,
           "type": "string"
+          "enum": [
+            { "on":1 },
+            { "off":0 }
+          ]
         }
       },
       "odmAction": {
-        "on": {},
-        "off": {}
+        "on": {"id":3},
+        "off": {"id":4}
       }
     }
   }
