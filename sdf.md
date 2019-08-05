@@ -25,14 +25,20 @@ The JSON format of an SDF definition is described in this document.
   "defaultNamespace": "st",
   "odmObject": {
     "Switch": {
+      "id":0,
       "odmProperty": {
         "value": {
+        "id":1,
           "type": "string"
+          "enum": [
+            { "on":1 },
+            { "off":0 }
+          ]
         }
       },
       "odmAction": {
-        "on": {},
-        "off": {}
+        "on": {"id":3},
+        "off": {"id":4}
       }
     }
   }
@@ -102,29 +108,39 @@ For example, an Object definition looks like this:
 ```
 An Object "foo" is defined in the default namespace, with an ID of 3001, containing a property "foo.bar", with an ID of 5150 and of type boolean.
 
-## Scope of Identifiers
-### Namespace resolution order:
-1. identifiers with an explicit namespace prefix
-2. keywords and quality names in the ODM and JSON Schema namespaces, defined in
-the JSON Schema for SDF
-3. identifier defined in the same (local) block
-4. identifier defined in the next closest enclosing block recursively
-5. identifier defined in the file
-6. identifier defined in the default namespace
+## Identifier name resolution
+### $ref and JSON Pointer
+Name references in SDF are resolved using JSON Pointer. That is, every name reference is the value of a "$ref" statement and includes a JSON Pointer reference. For example, this reference :
+```
+"temperatureProperty": {
+  "$ref": "#/odmData/temperatureData"
+}
+```
+### Namespace Prefix
 
-### Identifier name expansion from JSON path
-
-When a type is defined, the identifier is internally prefixed with the JSON path that locates the definition in the file.
-
-Types defined at the top level in the file go into the namespace at the root level.
-
-Types defined within another definition are prefixed with the path to the enclosing definition. For example, if there is an Object "foo" defined, and a definition for "bar" with Object foo, the path to bar will be "/odmObject/foo/odmProperty/bar" within the default namespace.
+Compact URI, or CURI, notation may be used to refer to definitions in another namespace. Names are resolved by expanding the prefix using the value for that prefix which is defined in the "namespace" section. For example, if a namespace prefix is defined:
+```
+"namespace": {
+  "foo": "https://example.com/#"
+}
+```
+Then a reference to that namespace:
+```
+"foo:temperatureData"
+```
+Would be expanded into:
+```
+"https://example.com/#temperatureData"
+```
 
 ### Target namespace
 
-The target namespace is the namespace into which the defined terms are added. The target namespace is defined by the default namespace, or by an explicit prefix on the identifier separated by a semicolon ":".
+The target namespace is the namespace into which the defined terms are added. The target namespace is defined by the default namespace, or by an explicit prefix on the identifier using a colon ":".
 
-For example if the default namespace in the example above is "baz", then you could refer to "baz:foo.bar" to point to the property defined by the "bar" definition.
+For example if the default namespace in the example above is "foo", then you could use "temperatureData" to refer to the property defined at the URI:
+```
+https://example.com/#temperatureData
+```
 
 ## Keywords for type definitions
 
@@ -142,8 +158,9 @@ The odmObject keyword denotes zero or more Object definitions. A object may cont
 |name|string|no|human readable name| N/A |
 |description|string|no|human readable description| N/A |
 |title|string|no|human readable title to display| N/A |
-|include|array|no|reference to definitions to be included| N/A |
-|odmType|object|no|reference to a definition to be used as a template for a new definition|N/A |
+|include|array|no|list of references to definitions to be included| N/A |
+| odmType|object|no|reference to a definition to be used as a template for a new definition|N/A |
+| required | array | no | list of required items in a valid definition | N/A |
 
 - odmTypes Object may define or contain
 
@@ -169,15 +186,17 @@ Properties are used to model elements of state.
 |name|string|no|human readable name| N/A |
 |description|string|no|human readable description| N/A |
 |title|string|no|human readable title to display| N/A |
+| required | array | no | list of required items in a valid definition | N/A |
 |include|array|no|reference to definitions to be included|
 |odmType|object|no|reference to a definition to be used as a template for a new definition| N/A |
 |readOnly|boolean|no|Only reads are allowed| false |
 |writeOnly|boolean|no|Only writes are allowed| false |
 |observable|boolean|no| flag to indicate asynchronous notification is available| true |
 |contentFormat|string|no|IANA media type string| N/A |
+|subtype|string|no|subtype enumeration|N/A|
+|widthInBits|integer|no|hint for protocol binding| N/A|
 |units|string|no|[SenML unit][] code| N/A |
 |nullable|boolean|no|indicates a null value is available for this type| true |
-|encoding|map|no|applies additional constraints| N/A |
 |scaleMinimum|number|no|lower limit of value in units| N/A |
 |scaleMaximum|number| no|upper limit of value in units| N/A |
 |type|string, enum|no|JSON data type| N/A |
@@ -186,15 +205,16 @@ Properties are used to model elements of state.
 |multipleOf|number|no|indicates the resolution of the number in representation format| N/A |
 |enum|array|no|enumeration constraint| N/A |
 |pattern|string|no|regular expression to constrain a string pattern| N/A |
+|format|string|no|JSON Schema formats| N/A|
 |minLength|integer|no|shortest length string in octets| N/A |
 |maxLength|integer|no|longest length string in octets| N/A |
 |default|number, boolean, string|no|specifies the default value for initialization| N/A |
 |const|number, boolean, string|no|specifies a constant value for a data item or property| N/A |
 
 
-- Types Property may define or contain
+- odmTypes Property may define or contain
 
-|Type|
+|odmType|
 |---|
 |odmData|
 
@@ -212,13 +232,13 @@ Actions are used to model commands and methods which are invoked. Actions have p
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
-|optional| boolean|no|defines whether this element is optional in an implementation|
+| required | array | no | list of required items in a valid definition | none |
 |include|array|no|reference to definitions to be included|
 |odmType|object|no|reference to a definition to be used as a template for a new definition|
 
-- Types Action may define or contain
+- odmTypes Action may define or contain
 
-|Type|
+|odmType|
 |---|
 |odmData|
 
@@ -237,13 +257,13 @@ Events are used to model asynchronous occurrences that may be communicated proac
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
-|optional| boolean|no|defines whether this element is optional in an implementation|
+| required | array | no | list of required items in a valid definition | none |
 |include|array|no|reference to definitions to be included|
 |odmType|object|no|reference to a definition to be used as a template for a new definition|
 
-- Types Event may define or contain
+- odmTypes Event may define or contain
 
-|Type|
+|odmType|
 |---|
 |odmData|
 
@@ -264,30 +284,32 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
-|optional| boolean|no|defines whether this element is optional in an implementation|
+| required | array | no | list of required items in a valid definition | none |
 |include|array|no|reference to definitions to be included|
-|odmType|object|no|reference to a definition to be used as a template for a new definition|
+|type|object|no|reference to a definition to be used as a template for a new definition|
+|subtype|string|no|subtype enumeration|N/A|
+|widthInBits|integer|no|hint for protocol binding| N/A|
 |units|string|no|[SenML unit][] code|
 |nullable|boolean|no|indicates a null value is available for this type|
-|encoding|map|no|applies additional constraints|
 |scaleMinimum|number|no|lower limit of value in units|
 |scaleMaximum|number|no|upper limit of value in units|
 |type|string, enum|yes|JSON data type|
 |minimum|number|no|lower limit of value in the representation format|
 |maximum|number|no|upper limit of value in the representation format|
 |multipleOf|number|no|indicates the resolution of the number in representation format|
-|enum|array|no|enumeration constraint|
+|enum|array of map containing {string:number}|no|enumeration constraint|
 |pattern|string|no|regular expression to constrain a string pattern|
+|format|string|no|JSON Schema formats| N/A|
 |minLength|integer|no|shortest length string in octets|
 |maxLength|integer|no|longest length string in octets|
 |default|number, boolean, string|no|specifies the default value for initialization|
 |const|number, boolean, string|no|specifies a constant value for a data item or property|
 
-- Types Data may define or contain
+- odmTypes Data may define or contain
 
-|Type|
+|odmType|
 |---|
-|JSON Schema Types with numeric constraint extensions|
+|(JSON Schema Types with numeric constraint extensions)|
 
 
 ## Example Simple Object Definition:
@@ -305,14 +327,20 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
   "defaultNamespace": "st",
   "odmObject": {
     "Switch": {
+      "id":0,
       "odmProperty": {
         "value": {
+        "id":1,
           "type": "string"
+          "enum": [
+            { "on":1 },
+            { "off":0 }
+          ]
         }
       },
       "odmAction": {
-        "on": {},
-        "off": {}
+        "on": {"id":3},
+        "off": {"id":4}
       }
     }
   }
@@ -334,24 +362,22 @@ The requirements for high level composition include the following:
 
 ### Paths in the model namespaces
 
-The model namespace is organized according to terms that are defined in the definition files that are loaded into the namespace. For example, definitions that originate from an organization or vendor are expected to be in a namespace that is specific to that organization or vendor.
+The model namespace is organized according to terms that are defined in the definition files that are present in the namespace. For example, definitions that originate from an organization or vendor are expected to be in a namespace that is specific to that organization or vendor. There is expecred to be an ODM namespace for common ODM definitions.
 
-The structure of a path in a namespace is defined by the JSON Pointers to the definitions in each file. For example, if there is a file defining an object "Switch" with an action "on", then the external reference to the action would be "ns:/odmObject/Switch/odmAction/on" where ns is the short name fpr the namespace prefix.
+The structure of a path in a namespace is defined by the JSON Pointers to the definitions in the files in that namespace. For example, if there is a file defining an object "Switch" with an action "on", then the reference to the action would be "ns:/odmObject/Switch/odmAction/on" where ns is the short name for the namespace prefix.
 
-A reference within the "Switch" object could simply use "on" according to the identifier resolution precedence rules.
+### Modular Composition
+Modular composition of definitions enables an existing definition (could be in the same file or another file) to become part of a new definition by including a reference to the existing definition within the model namespace. 
 
-### Re-use and Recursion
-Re-use of definitions enables an existing definition (could be in the same file or another file) to become part of a new definition by including a reference to the existing definition within the model namespace. There are currently considered three cases for reuse of definitions. The semantics are similar to those of typed links.
-
-#### Use of the "type" keyword to re-use a definition
-An existing definition may be used as a template for a new definition, that is, a new definition is created in the target namespace which uses the defined qualities of some existing definition. This pattern will use the keyword "type" as a quality of a new definition with a value consisting of a reference to the existing definition that is to be used as a template. Optionally, new qualities may be added and values of optional qualities and quality values may be defined.
+#### Use of the "odmType" keyword to re-use a definition
+An existing definition may be used as a template for a new definition, that is, a new definition is created in the target namespace which uses the defined qualities of some existing definition. This pattern will use the keyword "odmType" as a quality of a new definition with a value consisting of a reference to the existing definition that is to be used as a template. Optionally, new qualities may be added and values of optional qualities and quality values may be defined.
 
 #### The "include" keyword
 An existing definition may be used, with its name and its path in the model namespace, as virtual element in a new definition. This has the effect of linking to an instance when the model is deployed as run time. This pattern is useful to link properties, actions, and events from one object to another object, or to link objects together in a complex thing definition. This, aling with named views, supports modeling of the OCF "interface type" feature denoted by the "if" query parameter.
 
 ### odmView
 
-The odmView element provides a composed type that defines a named view which includes one or more instances of odmThing, odmObject, odmProperty, odmEvent, or odmAction.
+The odmView element provides a composed type that defines a named view, and which uses the include keyword to populate the view with one or more instances of odmThing, odmObject, odmProperty, odmEvent, or odmAction. 
 
 - Qualities of odmView
 
@@ -361,13 +387,13 @@ The odmView element provides a composed type that defines a named view which inc
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
-|optional| boolean|no|defines whether this element is optional in an implementation|
+| required | array | no | list of required items in a valid definition | none |
 |include|array|no|reference to definitions to be included in the view|
 
 
-- Types odmView may define or contain
+- odmTypes odmView may define or contain
 
-|Type|
+|odmType|
 |---|
 |odmThing|
 |odmObject|
@@ -392,13 +418,13 @@ Thing definitions carry semantic meaning, such as a defined refrigerator compart
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
-|optional| boolean|no|defines whether this element is optional in an implementation|
+| required | array | no | list of required items in a valid definition | none |
 |include|array|no|reference to definitions to be included|
 |odmType|object|no|reference to a definition to be used as a template for a new definition|
 
-- Types odmThing may define or contain
+- odmTypes odmThing may define or contain
 
-|Type|
+|odmType|
 |---|
 |odmView|
 |odmThing|
@@ -420,12 +446,13 @@ Product definitions may set optional defaults and constant values for specific u
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
+| required | array | no | list of required items in a valid definition | none |
 |include|string|no|reference to a definition to be included|
 
 
-- Types odmProduct may define or contain
+- odmTypes odmProduct may define or contain
 
-|Type|
+|odmType|
 |---|
 |odmThing|
 |odmView|
