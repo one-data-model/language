@@ -92,6 +92,21 @@
   },
 
   "definitions": {
+    "pointer-ref": {
+      "type": "object",
+      "properties": {
+        "$ref": {
+            "type": "string"
+        }
+      }
+    },
+    "pointer-ref-list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/pointer-ref"
+      },
+      "minitems": 1
+    },
     "commonqualities": {
       "type": "object",
       "properties": {
@@ -117,25 +132,10 @@
           }
         },
         "include": {
-          "type": "array",
-          "items": {
-            "description": "set of pointers to definitions to be included as instances",
-            "type": "object",
-            "properties": {
-              "$ref": {
-                  "type": "string"
-              },
-            "additionalProperties": false     
-            }
-          },
-          "minitems": 1
+          "$ref": "#/definitions/pointer-ref-list"
         },
         "required": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          },
-          "minitems": 1
+          "$ref": "#/definitions/pointer-ref-list"
         }
       },
       "required": ["id"]
@@ -218,11 +218,41 @@
     },
 
     "actionqualities": {
-      "$ref": "#/definitions/commonqualities"
+      "allOf":[
+        {
+          "$ref": "#/definitions/commonqualities"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "inputData": {
+              "$ref": "#/definitions/pointer-ref-list"
+            },
+            "outputData": {
+              "$ref": "#/definitions/pointer-ref-list"
+            }          
+          }
+        }
+      ]   
     },
 
     "eventqualities": {
-      "$ref": "#/definitions/commonqualities"
+      "allOf":[
+        {
+          "$ref": "#/definitions/commonqualities"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "inputData": {
+              "$ref": "#/definitions/pointer-ref-list"
+            },
+            "outputData": {
+              "$ref": "#/definitions/pointer-ref-list"
+            }          
+          }
+        }
+      ]    
     },
 
     "dataqualities": {
