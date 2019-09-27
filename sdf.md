@@ -148,7 +148,7 @@ The keyword "required" is provided to apply a constraint for which definitions a
 
 The value of "required" is an array of reference objects, each of which contains a JSON pointer to one required definition.
 
-The example uses relative JSON pointer syntax to point to nearby definitions.
+The example uses [Relative JSON Pointer][] syntax to point to nearby definitions.
 
 ``` json
 {
@@ -503,3 +503,4 @@ Product definitions may set optional defaults and constant values for specific u
 
 
 [SenML unit]: https://www.iana.org/assignments/senml/senml.xhtml#senml-units
+[Relative JSON Pointer]: https://tools.ietf.org/id/draft-handrews-relative-json-pointer-00.html
