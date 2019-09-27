@@ -11,7 +11,7 @@ This document describes definitions of OneDM Objects and their associated Events
 The JSON format of an SDF definition is described in this document.
 
 ## Example Definition:
-```
+```json
 {
   "info": {
     "title": "Example file for ODM Simple JSON Definition Format",
@@ -77,7 +77,7 @@ The defaultnamespace declaration defines one of the short names in the namespace
 |defaultnamespace|string|no|Identifies one of the prefixes in the namespace map to be used as a default in resolving identifiers|
 
 The following example declares a set of namespaces and defines `st` as the default namespace.
-```
+```json
 "namespace": {
   "st": "http://example.com/capability/odm",
   "zcl": "http://example.com/zcl/odm"
@@ -93,7 +93,7 @@ A definition may in turn contain other definitions. Each definition consists of 
 
 For example, an Object definition looks like this:
 
-```
+```json
 "odmObject": {
   "foo": {
     "id": 3001,
@@ -119,18 +119,18 @@ Name references in SDF are resolved using JSON Pointer. That is, every name refe
 ### Namespace Prefix
 
 Compact URI, or CURI, notation may be used to refer to definitions in another namespace. Names are resolved by expanding the prefix using the value for that prefix which is defined in the "namespace" section. For example, if a namespace prefix is defined:
-```
+```json
 "namespace": {
   "foo": "https://example.com/#"
 }
 ```
 Then a reference to that namespace:
-```
-"foo:temperatureData"
+```json
+"foo:odmData/temperatureData"
 ```
 Would be expanded into:
-```
-"https://example.com/#temperatureData"
+```json
+"https://example.com/#odmData/temperatureData"
 ```
 
 ### Target namespace
@@ -139,7 +139,46 @@ The target namespace is the namespace into which the defined terms are added. Th
 
 For example if the default namespace in the example above is "foo", then you could use "temperatureData" to refer to the property defined at the URI:
 ```
-https://example.com/#temperatureData
+https://example.com/#odmData/temperatureData
+```
+
+## Optionality using the keyword "required"
+
+The keyword "required" is provided to apply a constraint for which definitions are mandatory in an instance conforming to a particular definition in which the constraint appears.
+
+The value of "required" is an array of reference objects, each of which contains a JSON pointer to one required definition.
+
+The example uses relative JSON pointer syntax to point to nearby definitions.
+
+``` json
+{
+  "odmObject": {
+    "temperatureWithAlarm": {
+      "required": [
+        { "$ref": "0/odmData/temperatureData" },
+        { "$ref": "0/odmEvent/overTemperatureEvent" }
+      ],
+      "odmData":{
+        "temperatureData": {
+          "type": "number"
+        }
+      },
+      "odmEvent": {
+        "overTemperatureEvent": {
+          "outputData": {
+            "alarmType": {
+              "odmType": { "$ref": "odm:/#alarmTypes/quantityAlarms" },
+              "const": { "OverTemperature": 3774 }
+            },
+            "temperature": {
+              "odmType": { "$ref": "4/odmData/temperatureData" }
+            }
+          }
+        }
+      }
+    }
+  }
+}
 ```
 
 ## Keywords for type definitions
@@ -159,8 +198,8 @@ The odmObject keyword denotes zero or more Object definitions. A object may cont
 |description|string|no|human readable description| N/A |
 |title|string|no|human readable title to display| N/A |
 |include|array|no|list of references to definitions to be included| N/A |
-| odmType|object|no|reference to a definition to be used as a template for a new definition|N/A |
-| required | array | no | list of required items in a valid definition | N/A |
+|odmType|object|no|reference to a definition to be used as a template for a new definition|N/A |
+|required|array|no|list of references to required items in a valid definition| N/A |
 
 - odmTypes Object may define or contain
 
@@ -186,7 +225,7 @@ Properties are used to model elements of state.
 |name|string|no|human readable name| N/A |
 |description|string|no|human readable description| N/A |
 |title|string|no|human readable title to display| N/A |
-| required | array | no | list of required items in a valid definition | N/A |
+|required|array|no|list of references to required items in a valid definition | N/A |
 |include|array|no|reference to definitions to be included|
 |odmType|object|no|reference to a definition to be used as a template for a new definition| N/A |
 |readOnly|boolean|no|Only reads are allowed| false |
@@ -232,7 +271,7 @@ Actions are used to model commands and methods which are invoked. Actions have p
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
-| required | array | no | list of required items in a valid definition | none |
+|required|array|no|list of references to required items in a valid definition | N/A |
 |include|array|no|reference to definitions to be included|
 |odmType|object|no|reference to a definition to be used as a template for a new definition|
 
@@ -257,7 +296,7 @@ Events are used to model asynchronous occurrences that may be communicated proac
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
-| required | array | no | list of required items in a valid definition | none |
+|required|array|no|list of references to required items in a valid definition | N/A |
 |include|array|no|reference to definitions to be included|
 |odmType|object|no|reference to a definition to be used as a template for a new definition|
 
@@ -284,7 +323,7 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
-| required | array | no | list of required items in a valid definition | none |
+|required|array|no|list of references to required items in a valid definition | N/A |
 |include|array|no|reference to definitions to be included|
 |type|object|no|reference to a definition to be used as a template for a new definition|
 |subtype|string|no|subtype enumeration|N/A|
@@ -313,7 +352,7 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 
 
 ## Example Simple Object Definition:
-```
+```json
 {
   "info": {
     "title": "Example file for ODM Simple JSON Definition Format",
@@ -387,7 +426,7 @@ The odmView element provides a composed type that defines a named view, and whic
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
-| required | array | no | list of required items in a valid definition | none |
+|required|array|no|list of references to required items in a valid definition | N/A |
 |include|array|no|reference to definitions to be included in the view|
 
 
@@ -418,7 +457,7 @@ Thing definitions carry semantic meaning, such as a defined refrigerator compart
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
-| required | array | no | list of required items in a valid definition | none |
+|required|array|no|list of references to required items in a valid definition | N/A |
 |include|array|no|reference to definitions to be included|
 |odmType|object|no|reference to a definition to be used as a template for a new definition|
 
@@ -446,7 +485,7 @@ Product definitions may set optional defaults and constant values for specific u
 |name|string|no|human readable name|
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
-| required | array | no | list of required items in a valid definition | none |
+|required|array|no|list of references to required items in a valid definition | N/A |
 |include|string|no|reference to a definition to be included|
 
 
