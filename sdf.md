@@ -29,7 +29,7 @@ The JSON format of an SDF definition is described in this document.
       "odmProperty": {
         "value": {
         "id":1,
-          "type": "string"
+          "type": "string",
           "enum": [
             { "on":1 },
             { "off":0 }
@@ -99,7 +99,7 @@ For example, an Object definition looks like this:
     "id": 3001,
     "odmProperty": {
       "bar": {
-        "type": "boolean"
+        "type": "boolean",
         "id": 5150
       }
     }
@@ -167,7 +167,7 @@ The example uses relative JSON pointer syntax to point to nearby definitions.
         "overTemperatureEvent": {
           "outputData": {
             "alarmType": {
-              "odmType": { "$ref": "odm:/#alarmTypes/quantityAlarms" },
+              "odmType": { "$ref": "odm:/#odmData/alarmTypes/quantityAlarms" },
               "const": { "OverTemperature": 3774 }
             },
             "temperature": {
@@ -370,7 +370,7 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
       "odmProperty": {
         "value": {
         "id":1,
-          "type": "string"
+          "type": "string",
           "enum": [
             { "on":1 },
             { "off":0 }
