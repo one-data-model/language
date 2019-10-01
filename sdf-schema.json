@@ -107,17 +107,23 @@
       },
       "minitems": 1
     },
+    "pointer-list": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "commonqualities": {
       "type": "object",
       "properties": {
         "description": {
           "type": "string"
         },
-        "title": {
+        "$comment": {
           "type": "string"
         },
-        "id": {
-          "type": "number"
+        "title": {
+          "type": "string"
         },
         "name": {
           "type": "string"
@@ -131,14 +137,14 @@
           "additionalProperties": false        
           }
         },
-        "include": {
-          "$ref": "#/definitions/pointer-ref-list"
+        "odmInclude": {
+          "$ref": "#/definitions/pointer-list"
         },
-        "required": {
-          "$ref": "#/definitions/pointer-ref-list"
+        "odmRequired": {
+          "$ref": "#/definitions/pointer-list"
         }
       },
-      "required": ["id"]
+      "required": []
     },
 
     "thingqualities": {
@@ -225,11 +231,14 @@
         {
           "type": "object",
           "properties": {
-            "inputData": {
-              "$ref": "#/definitions/pointer-ref-list"
+            "odmInputData": {
+              "$ref": "#/definitions/pointer-list"
             },
-            "outputData": {
-              "$ref": "#/definitions/pointer-ref-list"
+            "odmRequiredInputData": {
+              "$ref": "#/definitions/pointer-list"
+            },
+            "odmOutputData": {
+              "$ref": "#/definitions/pointer-list"
             }          
           }
         }
@@ -244,11 +253,8 @@
         {
           "type": "object",
           "properties": {
-            "inputData": {
-              "$ref": "#/definitions/pointer-ref-list"
-            },
-            "outputData": {
-              "$ref": "#/definitions/pointer-ref-list"
+            "odmOutputData": {
+              "$ref": "#/definitions/pointer-list"
             }          
           }
         }
@@ -278,6 +284,12 @@
             "observable": {
               "type": "boolean"
             },
+            "readable": {
+              "type": "boolean"
+            },
+            "writeable": {
+              "type": "boolean"
+            },
             "nullable": {
               "type": "boolean"
             },
@@ -299,6 +311,9 @@
     "jsonschema": {
       "type": "object",
       "properties": {
+        "$comment": {
+          "type": "string"
+        },
         "type": {
           "type": "string",
           "enum": [
@@ -418,12 +433,6 @@
         },
         "properties": {
           "type": "object"
-        },
-        "readOnly": {
-          "type": "boolean"
-        },
-        "writeOnly": {
-          "type": "boolean"
         }
       }
     }
