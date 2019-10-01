@@ -202,7 +202,7 @@ The odmObject keyword denotes zero or more Object definitions. A object may cont
 |description|string|no|human readable description| N/A |
 |title|string|no|human readable title to display| N/A |
 |$comment|string|no|explanatory comments | N/A |
-|odmInclude|array|no|Array of reference objects, using "$ref" to point to definitions to be included| N/A |
+|odmInclude|array|no|Array of JSON Pointers to definitions to be included| N/A |
 |odmType|object|no|reference to a definition to be used as a template for a new definition|N/A |
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition | N/A |
 
@@ -231,7 +231,7 @@ Properties are used to model elements of state.
 |title|string|no|human readable title to display| N/A |
 |$comment|string|no|explanatory comments | N/A |
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition | N/A |
-|odmInclude|array|no|Array of reference objects, using "$ref" to point to definitions to be included|
+|odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
 |odmType|object|no|reference to a definition to be used as a template for a new definition| N/A |
 |readable|boolean|no|Reads are allowed| false |
 |writeable|boolean|no|Writes are allowed| false |
@@ -280,7 +280,7 @@ Actions are used to model commands and methods which are invoked. Actions have p
 |odmInputData|array|no|Array of JSON Pointers to mandatory items in a valid action definition | N/A |
 |odmRequiredInputData|array|no|Array of JSON Pointers to mandatory items in a valid action definition | N/A |
 |odmOutputData|array|no|Array of JSON Pointers to mandatory items in a valid action definition | N/A |
-|odmInclude|array|no|Array of reference objects, using "$ref" to point to definitions to be included|
+|odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
 |odmType|object|no|reference to a definition to be used as a template for a new definition|
 
 - odmTypes Action may define or include
@@ -306,7 +306,7 @@ Events are used to model asynchronous occurrences that may be communicated proac
 |$comment|string|no|explanatory comments | N/A |
 |odmOutputData|array|no|Array of JSON Pointers to mandatory items in a valid action definition | N/A |
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition | N/A |
-|odmInclude|array|no|Array of reference objects, using "$ref" to point to definitions to be included|
+|odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
 |odmType|object|no|reference to a definition to be used as a template for a new definition|
 
 - odmTypes Event may define or include
@@ -333,7 +333,7 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 |title|string|no|human readable title to display|
 |$comment|string|no|explanatory comments | N/A |
 |required|array|no|list of references to mandatory items in a valid definition | N/A |
-|odmInclude|array|no|Array of reference objects, using "$ref" to point to definitions to be included|
+|odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
 |type|object|no|reference to a definition to be used as a template for a new definition|
 |subtype|string|no|subtype enumeration|N/A|
 |widthInBits|integer|no|hint for protocol binding| N/A|
@@ -423,7 +423,7 @@ An existing definition may be used, with its name and its path in the model name
 
 ### odmView
 
-The odmView element provides a composed type that defines a named view, and which uses the odmInclude keyword to populate the view with one or more referenced instances of odmThing, odmObject, odmProperty, odmEvent, or odmAction. 
+The odmView element provides a composed type that defines a named view, and which uses the odmInclude keyword to populate the view with one or more instances of odmThing, odmObject, odmProperty, odmEvent, or odmAction. 
 
 - Qualities of odmView
 
@@ -434,7 +434,7 @@ The odmView element provides a composed type that defines a named view, and whic
 |title|string|no|human readable title to display|
 |$comment|string|no|explanatory comments | N/A |
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition | N/A |
-|odmInclude|array|no|Array of reference objects, using "$ref" to point to definitions to be included|
+|odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
 
 
 - odmTypes odmView may define or include
@@ -465,7 +465,7 @@ Thing definitions carry semantic meaning, such as a defined refrigerator compart
 |title|string|no|human readable title to display|
 |$comment|string|no|explanatory comments | N/A |
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition | N/A |
-|odmInclude|array|no|Array of reference objects, using "$ref" to point to definitions to be included|
+|odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
 |odmType|object|no|reference to a definition to be used as a template for a new definition|
 
 - odmTypes odmThing may define or include
@@ -493,7 +493,7 @@ Product definitions may set optional defaults and constant values for specific u
 |title|string|no|human readable title to display|
 |$comment|string|no|explanatory comments | N/A |
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition  | N/A |
-|odmInclude|array|no|Array of reference objects, using "$ref" to point to definitions to be included|
+|odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
 
 
 - odmTypes odmProduct may define or include
