@@ -102,12 +102,12 @@ For example, an Object definition looks like this:
   }
 }
 ```
-An Object "foo" is defined in the default namespace, with an ID of 3001, containing a property "foo.bar", with an ID of 5150 and of type boolean.
+An Object "foo" is defined in the default namespace, containing a property "foo.bar",  of type boolean.
 
 ## Identifier name resolution
 
 ### JSON Pointer and Reference Objects
-Name references in SDF are resolved using JSON Pointer. That is, every name reference includes a JSON Pointer reference. 
+References in SDF are resolved using JSON Pointer. That is, every reference includes a JSON Pointer reference. 
 
 The keyword "$ref" is used in a definition to copy all of the qualities of the referenced definition, indicated by the included JSON pointer, into the newly formed definition.
 
