@@ -496,17 +496,15 @@ Product definitions may set optional defaults and constant values for specific u
 |odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
 
 
-- odmProduct may define or include
+odmProduct may define or include the following odmTypes:
 
-|odmType|
-|---|
-|odmThing|
-|odmView|
-|odmObject|
-|odmProperty|
-|odmAction|
-|odmEvent|
-|odmData|
+- odmThing
+- odmView
+- odmObject
+- odmProperty
+- odmAction
+- odmEvent
+- odmDat
 
 
 [SenML unit]: https://www.iana.org/assignments/senml/senml.xhtml#senml-units
