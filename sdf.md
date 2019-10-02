@@ -153,8 +153,6 @@ The keyword "odmRequired" is provided to apply a constraint for which definition
 
 The value of "odmRequired" is an array JSON pointers, each indicating one mandatory definition.
 
-The example uses [Relative JSON Pointer][] syntax to point to nearby definitions.
-
 ``` json
 {
   "odmObject": {
@@ -186,6 +184,29 @@ The example uses [Relative JSON Pointer][] syntax to point to nearby definitions
 }
 ```
 
+The above example uses [Relative JSON Pointer][] syntax to point to nearby definitions. 
+
+The prefix of a relative JSON pointer indicates how mmant levels above the parent element of the JSON Pointer the following path string is relative to.
+
+In this section, the pointer prefix "0" indicares that the following path is relative to the parent element "temperatureWithAlarm". 
+
+```json
+    "temperatureWithAlarm": {
+      "odmRequired": [
+        "0/odmData/temperatureData",
+        "0/odmEvent/overTemperatureEvent"
+      ],
+    }
+```
+
+In this section, the pointer prefix of "4" indicates that the following path is relative to the element four levels above the parent element, in this case also pointing to the element "temperatureWithAlarm". 
+
+```json
+            "temperature": {
+              "odmType": { "$ref": "4/odmData/temperatureData" }
+            }
+```
+
 ## Keywords for type definitions
 
 The following SDF keywords are used to create type definitions in the target namespace.
@@ -206,14 +227,12 @@ The odmObject keyword denotes zero or more Object definitions. A object may cont
 |odmType|object|no|reference to a definition to be used as a template for a new definition|N/A |
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition | N/A |
 
-- odmObject may define or include
+odmObject may define or include the following odmTypes:
 
-|odmType|
-|---|
-|odmProperty|
-|odmAction|
-|odmEvent|
-|odmData|
+- odmProperty
+- odmAction
+- odmEvent
+- odmData
 
 
 ### odmProperty
@@ -256,11 +275,9 @@ Properties are used to model elements of state.
 |const|number, boolean, string|no|specifies a constant value for a data item or property| N/A |
 
 
-- odmProperty may define or include
+odmProperty may define or include the following odmTypes:
 
-|odmType|
-|---|
-|odmData|
+- odmData
 
 ### odmAction
 
@@ -283,11 +300,9 @@ Actions are used to model commands and methods which are invoked. Actions have p
 |odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
 |odmType|object|no|reference to a definition to be used as a template for a new definition|
 
-- odmAction may define or include
+odmAction may define or include the following odmTypes:
 
-|odmType|
-|---|
-|odmData|
+- odmData
 
 
 ### odmEvent
@@ -309,11 +324,9 @@ Events are used to model asynchronous occurrences that may be communicated proac
 |odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
 |odmType|object|no|reference to a definition to be used as a template for a new definition|
 
-- odmTypes Event may define or include
+odmEvent may define or include the following odmTypes:
 
-|odmType|
-|---|
-|odmData|
+- odmData
 
 
 ### odmData
@@ -353,11 +366,9 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 |default|number, boolean, string|no|specifies the default value for initialization|
 |const|number, boolean, string|no|specifies a constant value for a data item or property|
 
-- odmData may define or contain
+odmData may define or contain the following odmTypes:
 
-|odmType|
-|---|
-|(JSON Schema Types with numeric constraint extensions)|
+- JSON Schema Types with numeric constraint extensions
 
 
 ## Example Simple Object Definition:
@@ -419,10 +430,33 @@ Modular composition of definitions enables an existing definition (could be in t
 An existing definition may be used as a template for a new definition, that is, a new definition is created in the target namespace which uses the defined qualities of some existing definition. This pattern will use the keyword "odmType" as a quality of a new definition with a value consisting of a reference to the existing definition that is to be used as a template. Optionally, new qualities may be added and values of optional qualities and quality values may be defined.
 
 #### The "odmInclude" keyword
-An existing definition may be used, with its name and its path in the model namespace, as virtual element in a new definition. This has the effect of linking to an instance when the model is deployed as run time. This pattern is useful to link properties, actions, and events from one object to another object, or to link objects together in a complex thing definition. This, aling with named views, supports modeling of the OCF "interface type" feature denoted by the "if" query parameter.
+One or more existing definition may be used, with its name and its path in the model namespace, as virtual element in a new definition. This has the effect of linking to an instance when the model is deployed as run time. This pattern is useful to link properties, actions, and events from one object to another object, or to link objects together in a complex thing definition. This, aling with named views, supports modeling of the OCF "interface type" feature denoted by the "if" query parameter.
+
+#### The "odmInstantiate" keyword
+One or more existing definitions may be used as a template for a new definition by using the "odmInstantiate" keyword. The value for this keyword is an array of reference objects:
+
+ ```json
+{
+  "odmInstantiate": [
+    { "$ref": "/odmObject/Switch }
+  ]
+}
+```
+The example definition element will create a new definition named "Switch" at the current location and populate it with the qualities of the referenced odmObject "Switch".
+
+Using odmInstantiate allows qualities of the definition to be defined locally.  For example, this definition element makes a new "temperature" definition with a "units" quality value of "Cel":
+
+```json
+{
+  "odmInstantiate": [
+    { "$ref": "/odmObject/temperature",
+      "units": "Cel"
+    }
+  ]
+}
+```
 
 ### odmView
-
 The odmView element provides a composed type that defines a named view, and which uses the odmInclude keyword to populate the view with one or more instances of odmThing, odmObject, odmProperty, odmEvent, or odmAction. 
 
 - Qualities of odmView
@@ -437,15 +471,13 @@ The odmView element provides a composed type that defines a named view, and whic
 |odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
 
 
-- odmView may define or include
+odmView may define or include the following odmTypes:
 
-|odmType|
-|---|
-|odmThing|
-|odmObject|
-|odmProperty|
-|odmAction|
-|odmEvent|
+- odmThing
+- odmObject
+- odmProperty
+- odmAction
+- odmEvent
 
 
 ### odmThing
@@ -468,13 +500,11 @@ Thing definitions carry semantic meaning, such as a defined refrigerator compart
 |odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
 |odmType|object|no|reference to a definition to be used as a template for a new definition|
 
-- odmThing may define or include
+odmThing may define or include the following odmTypes:
 
-|odmType|
-|---|
-|odmView|
-|odmThing|
-|odmObject|
+- odmView
+- odmThing
+- odmObject
 
 ### odmProduct
 
