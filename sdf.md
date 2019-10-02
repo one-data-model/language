@@ -206,7 +206,7 @@ The odmObject keyword denotes zero or more Object definitions. A object may cont
 |odmType|object|no|reference to a definition to be used as a template for a new definition|N/A |
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition | N/A |
 
-- odmTypes Object may define or include
+- odmObject may define or include
 
 |odmType|
 |---|
@@ -256,7 +256,7 @@ Properties are used to model elements of state.
 |const|number, boolean, string|no|specifies a constant value for a data item or property| N/A |
 
 
-- odmTypes Property may define or include
+- odmProperty may define or include
 
 |odmType|
 |---|
@@ -283,7 +283,7 @@ Actions are used to model commands and methods which are invoked. Actions have p
 |odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
 |odmType|object|no|reference to a definition to be used as a template for a new definition|
 
-- odmTypes Action may define or include
+- odmAction may define or include
 
 |odmType|
 |---|
@@ -353,7 +353,7 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 |default|number, boolean, string|no|specifies the default value for initialization|
 |const|number, boolean, string|no|specifies a constant value for a data item or property|
 
-- odmTypes Data may define or contain
+- odmData may define or contain
 
 |odmType|
 |---|
@@ -437,7 +437,7 @@ The odmView element provides a composed type that defines a named view, and whic
 |odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
 
 
-- odmTypes odmView may define or include
+- odmView may define or include
 
 |odmType|
 |---|
@@ -468,7 +468,7 @@ Thing definitions carry semantic meaning, such as a defined refrigerator compart
 |odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
 |odmType|object|no|reference to a definition to be used as a template for a new definition|
 
-- odmTypes odmThing may define or include
+- odmThing may define or include
 
 |odmType|
 |---|
@@ -496,7 +496,7 @@ Product definitions may set optional defaults and constant values for specific u
 |odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
 
 
-- odmTypes odmProduct may define or include
+- odmProduct may define or include
 
 |odmType|
 |---|
