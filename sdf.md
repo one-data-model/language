@@ -504,7 +504,7 @@ odmProduct may define or include the following odmTypes:
 - odmProperty
 - odmAction
 - odmEvent
-- odmDat
+- odmData
 
 
 [SenML unit]: https://www.iana.org/assignments/senml/senml.xhtml#senml-units
