@@ -18,7 +18,7 @@ Quality
 - a metadata item in a definition or declaration which says something about that definition or declaration. A quality is represented in SDF as a member in a JSON object that serves as a definition or declaration
 
 Definition 
-- Creates a new semantic term for use in OneDM models and associates it with a set of qualities
+- Creates a new semantic term for use in SDF models and associates it with a set of qualities
 
 Declaration
 - A reference to and a use of a definition within an enclosing definition, intended to create component instances within that enclosing definition.
