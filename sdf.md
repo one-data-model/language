@@ -10,6 +10,23 @@ This document describes definitions of OneDM Objects and their associated Events
 
 The JSON format of an SDF definition is described in this document.
 
+## Defined Terms
+
+Note: Should we use RFC 2119?
+
+Quality 
+- a metadata item in a definition or declaration which says something about that definition or declaration. A quality is represented in SDF as a member in a JSON object that serves as a definition or declaration
+
+Definition 
+- Creates a new semantic term in OneDM and associates it with a set of qualities
+
+Declaration
+- A reference to and a use of a definition within an enclosing definition, intended to create component instances within that enclosing definition.
+
+## Conventions
+
+- The singular form is preferred for keywords.
+
 ## Example Definition:
 ```json
 {
@@ -450,11 +467,11 @@ The odmView element provides a composed type that defines a named view, and whic
 
 ### odmThing
 
-An odmThing is a potentially reusable composition of objects that is part of a more complex model. For example, the objects that make up the definition of a single plug of an outlet strip could be encapsulated by a component.
+An odmThing is a set of declarations and qualities that may be part of a more complex model. For example, the object declarations that make up the definition of a single plug of an outlet strip could be encapsulated in an odmThing, and the plug-thing itself could be used in a declaration in the odmThing definition for the outlet strip.
 
-Thing definitions work much like Object definitions, except that a Thing is composed of Objects. Thing definitions may use odmInclude for Object definitions from elsewhere, or Thing definitions may use odmInclude for their own Object definitions, as well as reusable Property, Action, and Event definitions that can be used to extend or complete the Object definitions.
+odmThing definitions carry semantic meaning, such as a defined refrigerator compartment and a defined freezer compartment, making up a combination refer-freezer product.
 
-Thing definitions carry semantic meaning, such as a defined refrigerator compartment and a defined freezer compartment, making up a combination refer-freezer product.
+An odmThing may be composed of odmObjects and other odmThings. 
 
 - Qualities of odmThing
 
