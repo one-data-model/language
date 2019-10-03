@@ -142,9 +142,6 @@
         },
         "odmRequired": {
           "$ref": "#/definitions/pointer-list"
-        },
-        "odmInstantiate": {
-          "$ref": "#/definitions/pointer-ref-list"
         }
       },
       "required": []

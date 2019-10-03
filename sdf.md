@@ -119,7 +119,7 @@ For example, this reference :
 ```
 Creates a new definition "temperatureProperty" that contains all of the qualities defined in the definition at /odmData/temperatureData.
 
-If a JSON Pointer is used without the "$ref" tag, it simply points to an SDF element. See the sections on "odmRequired" for an example.
+If a JSON Pointer is used without the "$ref" tag, it points to an SDF element. See the sections on "odmRequired" for an example.
 
 ### Namespace Prefix
 
@@ -431,30 +431,6 @@ An existing definition may be used as a template for a new definition, that is, 
 
 #### The "odmInclude" keyword
 One or more existing definition may be used, with its name and its path in the model namespace, as virtual element in a new definition. This has the effect of linking to an instance when the model is deployed as run time. This pattern is useful to link properties, actions, and events from one object to another object, or to link objects together in a complex thing definition. This, aling with named views, supports modeling of the OCF "interface type" feature denoted by the "if" query parameter.
-
-#### The "odmInstantiate" keyword
-One or more existing definitions may be used as a template for a new definition by using the "odmInstantiate" keyword. The value for this keyword is an array of reference objects:
-
- ```json
-{
-  "odmInstantiate": [
-    { "$ref": "/odmObject/Switch" }
-  ]
-}
-```
-The example definition element will create a new definition named "Switch" at the current location and populate it with the qualities of the referenced odmObject "Switch".
-
-Using odmInstantiate allows qualities of the definition to be defined locally.  For example, this definition element makes a new "temperature" definition with a "units" quality value of "Cel":
-
-```json
-{
-  "odmInstantiate": [
-    { "$ref": "/odmObject/temperature",
-      "units": "Cel"
-    }
-  ]
-}
-```
 
 ### odmView
 The odmView element provides a composed type that defines a named view, and which uses the odmInclude keyword to populate the view with one or more instances of odmThing, odmObject, odmProperty, odmEvent, or odmAction. 
