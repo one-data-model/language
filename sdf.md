@@ -186,9 +186,9 @@ The value of "odmRequired" is an array JSON pointers, each indicating one mandat
 
 The above example uses [Relative JSON Pointer][] syntax to point to nearby definitions. 
 
-The prefix of a relative JSON pointer indicates how mmant levels above the parent element of the JSON Pointer the following path string is relative to.
+The prefix of a relative JSON pointer indicates how many levels above the parent element of the JSON Pointer the following path string is relative to.
 
-In this section, the pointer prefix "0" indicares that the following path is relative to the parent element "temperatureWithAlarm". 
+In this section, the pointer prefix "0" indicates that the following path is relative to the parent element "temperatureWithAlarm". 
 
 ```json
     "temperatureWithAlarm": {
