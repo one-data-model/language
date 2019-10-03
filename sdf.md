@@ -438,7 +438,7 @@ One or more existing definitions may be used as a template for a new definition 
  ```json
 {
   "odmInstantiate": [
-    { "$ref": "/odmObject/Switch }
+    { "$ref": "/odmObject/Switch" }
   ]
 }
 ```
