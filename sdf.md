@@ -467,7 +467,7 @@ The odmView element provides a composed type that defines a named view, and whic
 
 ### odmThing
 
-An odmThing is a set of declarations and qualities that may be part of a more complex model. For example, the object declarations that make up the definition of a single plug of an outlet strip could be encapsulated in an odmThing, and the plug-thing itself could be used in a declaration in the odmThing definition for the outlet strip.
+An odmThing is a set of declarations and qualities that may be part of a more complex model. For example, the object declarations that make up the definition of a single socket of an outlet strip could be encapsulated in an odmThing, and the socket-thing itself could be used in a declaration in the odmThing definition for the outlet strip.
 
 odmThing definitions carry semantic meaning, such as a defined refrigerator compartment and a defined freezer compartment, making up a combination referigerator-freezer product.
 
