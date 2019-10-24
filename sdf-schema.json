@@ -327,6 +327,9 @@
         "$comment": {
           "type": "string"
         },
+        "$ref": {
+          "$ref": "#/definitions/jsonpointer"
+        },
         "type": {
           "type": "string",
           "enum": [
