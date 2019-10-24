@@ -139,7 +139,7 @@
           "type": "string"
         },
         "odmRef": {
-          "type": "string"
+          "$ref": "#/definitions/jsonpointer"
         },
         "odmType": {
           "type": "object",
