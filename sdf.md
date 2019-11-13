@@ -123,20 +123,20 @@ An Object "foo" is defined in the default namespace, containing a property "foo.
 
 ## Identifier name resolution
 
-### JSON Pointer and Reference Objects
+### JSON Pointer and references to definitions
 References in SDF are resolved using JSON Pointer. That is, every reference includes a JSON Pointer reference. 
 
-The keyword "$ref" is used in a definition to copy all of the qualities of the referenced definition, indicated by the included JSON pointer, into the newly formed definition.
+The keyword "odmRef" is used in a definition to copy all of the qualities of the referenced definition, indicated by the included JSON pointer, into the newly formed definition. This is similar to the processing of the "$ref" keyword in JSON Schema.
 
 For example, this reference :
 ```
 "temperatureProperty": {
-  "$ref": "#/odmData/temperatureData"
+  "odmRef": "#/odmData/temperatureData"
 }
 ```
 Creates a new definition "temperatureProperty" that contains all of the qualities defined in the definition at /odmData/temperatureData.
 
-If a JSON Pointer is used without the "$ref" tag, it points to an SDF element. See the sections on "odmRequired" for an example.
+If a JSON Pointer is used without the "odmRef" tag, it points to an SDF element. See the sections on "odmRequired" for an example.
 
 ### Namespace Prefix
 
@@ -187,11 +187,11 @@ The value of "odmRequired" is an array JSON pointers, each indicating one mandat
         "overTemperatureEvent": {
           "outputData": {
             "alarmType": {
-              "odmType": { "$ref": "odm:/#odmData/alarmTypes/quantityAlarms" },
+              "odmRef": "odm:/#odmData/alarmTypes/quantityAlarms",
               "const": { "OverTemperature": 3774 }
             },
             "temperature": {
-              "odmType": { "$ref": "4/odmData/temperatureData" }
+              "odmRef": "4/odmData/temperatureData"
             }
           }
         }
@@ -216,11 +216,11 @@ In this section, the pointer prefix "0" indicates that the following path is rel
     }
 ```
 
-In this section, the pointer prefix of "4" indicates that the following path is relative to the element four levels above the parent element, in this case also pointing to the element "temperatureWithAlarm". 
+In this section, the pointer prefix of "4" indicates that the following path is relative to the element four levels above the parent element, in this example pointing to the element at the document-relative path "#/odmObject/temperatureWithAlarm/odmData/temperatureData". 
 
 ```json
             "temperature": {
-              "odmType": { "$ref": "4/odmData/temperatureData" }
+              "odmRref": "4/odmData/temperatureData"
             }
 ```
 
@@ -240,7 +240,7 @@ The odmObject keyword denotes zero or more Object definitions. A object may cont
 |description|string|no|human readable description| N/A |
 |title|string|no|human readable title to display| N/A |
 |$comment|string|no|explanatory comments | N/A |
-|odmInclude|array|no|Array of JSON Pointers to definitions to be included| N/A |
+|odmComponent|array|no|Array of JSON Pointers to definitions to be included| N/A |
 |odmType|object|no|reference to a definition to be used as a template for a new definition|N/A |
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition | N/A |
 
@@ -267,7 +267,7 @@ Properties are used to model elements of state.
 |title|string|no|human readable title to display| N/A |
 |$comment|string|no|explanatory comments | N/A |
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition | N/A |
-|odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
+|odmComponent|array|no|Array of JSON Pointers to definitions to be included|N/A|
 |odmType|object|no|reference to a definition to be used as a template for a new definition| N/A |
 |readable|boolean|no|Reads are allowed| true |
 |writeable|boolean|no|Writes are allowed| true |
@@ -314,7 +314,7 @@ Actions are used to model commands and methods which are invoked. Actions have p
 |odmInputData|array|no|Array of JSON Pointers to mandatory items in a valid action definition | N/A |
 |odmRequiredInputData|array|no|Array of JSON Pointers to mandatory items in a valid action definition | N/A |
 |odmOutputData|array|no|Array of JSON Pointers to mandatory items in a valid action definition | N/A |
-|odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
+|odmComponent|array|no|Array of JSON Pointers to definitions to be included|N/A|
 |odmType|object|no|reference to a definition to be used as a template for a new definition|
 
 odmAction may define or include the following odmTypes:
@@ -338,7 +338,7 @@ Events are used to model asynchronous occurrences that may be communicated proac
 |$comment|string|no|explanatory comments | N/A |
 |odmOutputData|array|no|Array of JSON Pointers to mandatory items in a valid action definition | N/A |
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition | N/A |
-|odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
+|odmComponent|array|no|Array of JSON Pointers to definitions to be included|N/A|
 |odmType|object|no|reference to a definition to be used as a template for a new definition|
 
 odmEvent may define or include the following odmTypes:
@@ -363,7 +363,7 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 |title|string|no|human readable title to display|
 |$comment|string|no|explanatory comments | N/A |
 |required|array|no|list of references to mandatory items in a valid definition | N/A |
-|odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
+|odmComponent|array|no|Array of JSON Pointers to definitions to be included|N/A|
 |type|object|no|reference to a definition to be used as a template for a new definition|
 |subtype|string|no|subtype enumeration|N/A|
 |widthInBits|integer|no|hint for protocol binding| N/A|
@@ -446,11 +446,11 @@ Modular composition of definitions enables an existing definition (could be in t
 #### Use of the "odmType" keyword to re-use a definition
 An existing definition may be used as a template for a new definition, that is, a new definition is created in the target namespace which uses the defined qualities of some existing definition. This pattern will use the keyword "odmType" as a quality of a new definition with a value consisting of a reference to the existing definition that is to be used as a template. Optionally, new qualities may be added and values of optional qualities and quality values may be defined.
 
-#### The "odmInclude" keyword
-One or more existing definition may be used, with its name and its path in the model namespace, as virtual element in a new definition. This has the effect of linking to an instance when the model is deployed as run time. This pattern is useful to link properties, actions, and events from one object to another object, or to link objects together in a complex thing definition. This, aling with named views, supports modeling of the OCF "interface type" feature denoted by the "if" query parameter.
+#### The "odmComponent" keyword
+One or more existing definition may be used, with its name and its path in the model namespace, as virtual element in a new definition. This has the effect of linking to an instance when the model is deployed as run time. This pattern is useful to link properties, actions, and events from one object to another object, or to link objects together in a complex thing definition. This, along with the odmView class, supports modeling of the OCF "interface type" feature denoted by the "if" query parameter.
 
 ### odmView
-The odmView element provides a composed type that defines a named view, and which uses the odmInclude keyword to populate the view with one or more instances of odmThing, odmObject, odmProperty, odmEvent, or odmAction. 
+The odmView element provides a composed type that defines a named view, and which uses the odmComponent keyword to populate the view with one or more instances of odmThing, odmObject, odmProperty, odmEvent, or odmAction. 
 
 - Qualities of odmView
 
@@ -461,7 +461,7 @@ The odmView element provides a composed type that defines a named view, and whic
 |title|string|no|human readable title to display|
 |$comment|string|no|explanatory comments | N/A |
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition | N/A |
-|odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
+|odmComponent|array|no|Array of JSON Pointers to definitions to be included|N/A|
 
 
 odmView may define or include the following odmTypes:
@@ -490,7 +490,7 @@ An odmThing may be composed of odmObjects and other odmThings.
 |title|string|no|human readable title to display|
 |$comment|string|no|explanatory comments | N/A |
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition | N/A |
-|odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
+|odmComponent|array|no|Array of JSON Pointers to definitions to be included|N/A|
 |odmType|object|no|reference to a definition to be used as a template for a new definition|
 
 odmThing may define or include the following odmTypes:
@@ -516,7 +516,7 @@ Product definitions may set optional defaults and constant values for specific u
 |title|string|no|human readable title to display|
 |$comment|string|no|explanatory comments | N/A |
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition  | N/A |
-|odmInclude|array|no|Array of JSON Pointers to definitions to be included|N/A|
+|odmComponent|array|no|Array of JSON Pointers to definitions to be included|N/A|
 
 
 odmProduct may define or include the following odmTypes:
