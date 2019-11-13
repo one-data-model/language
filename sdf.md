@@ -241,10 +241,10 @@ The odmObject keyword denotes zero or more Object definitions. A object may cont
 |title|string|no|human readable title to display| N/A |
 |$comment|string|no|explanatory comments | N/A |
 |odmComponent|array|no|Array of JSON Pointers to definitions to be included| N/A |
-|odmType|object|no|reference to a definition to be used as a template for a new definition|N/A |
+|odmRef|object|no|reference to a definition to be used as a template for a new definition|N/A |
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition | N/A |
 
-odmObject may define or include the following odmTypes:
+odmObject may define or include the following ODM types:
 
 - odmProperty
 - odmAction
@@ -268,7 +268,7 @@ Properties are used to model elements of state.
 |$comment|string|no|explanatory comments | N/A |
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition | N/A |
 |odmComponent|array|no|Array of JSON Pointers to definitions to be included|N/A|
-|odmType|object|no|reference to a definition to be used as a template for a new definition| N/A |
+|odmRef|object|no|reference to a definition to be used as a template for a new definition| N/A |
 |readable|boolean|no|Reads are allowed| true |
 |writeable|boolean|no|Writes are allowed| true |
 |observable|boolean|no| flag to indicate asynchronous notification is available| true |
@@ -292,7 +292,7 @@ Properties are used to model elements of state.
 |const|number, boolean, string|no|specifies a constant value for a data item or property| N/A |
 
 
-odmProperty may define or include the following odmTypes:
+odmProperty may define or include the following ODM types:
 
 - odmData
 
@@ -315,9 +315,9 @@ Actions are used to model commands and methods which are invoked. Actions have p
 |odmRequiredInputData|array|no|Array of JSON Pointers to mandatory items in a valid action definition | N/A |
 |odmOutputData|array|no|Array of JSON Pointers to mandatory items in a valid action definition | N/A |
 |odmComponent|array|no|Array of JSON Pointers to definitions to be included|N/A|
-|odmType|object|no|reference to a definition to be used as a template for a new definition|
+|odmRef|object|no|reference to a definition to be used as a template for a new definition|
 
-odmAction may define or include the following odmTypes:
+odmAction may define or include the following ODM types:
 
 - odmData
 
@@ -336,12 +336,12 @@ Events are used to model asynchronous occurrences that may be communicated proac
 |description|string|no|human readable description|
 |title|string|no|human readable title to display|
 |$comment|string|no|explanatory comments | N/A |
-|odmOutputData|array|no|Array of JSON Pointers to mandatory items in a valid action definition | N/A |
+|odmOutputData|array|no|Array of JSON Pointers to output items in a valid definition | N/A |
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition | N/A |
 |odmComponent|array|no|Array of JSON Pointers to definitions to be included|N/A|
-|odmType|object|no|reference to a definition to be used as a template for a new definition|
+|odmRef|object|no|reference to a definition to be used as a template for a new definition|
 
-odmEvent may define or include the following odmTypes:
+odmEvent may define or include the following ODM types:
 
 - odmData
 
@@ -364,6 +364,7 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 |$comment|string|no|explanatory comments | N/A |
 |required|array|no|list of references to mandatory items in a valid definition | N/A |
 |odmComponent|array|no|Array of JSON Pointers to definitions to be included|N/A|
+|odmRef|object|no|reference to a definition to be used as a template for a new definition|
 |type|object|no|reference to a definition to be used as a template for a new definition|
 |subtype|string|no|subtype enumeration|N/A|
 |widthInBits|integer|no|hint for protocol binding| N/A|
@@ -383,7 +384,7 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 |default|number, boolean, string|no|specifies the default value for initialization|
 |const|number, boolean, string|no|specifies a constant value for a data item or property|
 
-odmData may define or contain the following odmTypes:
+odmData may define or contain the following ODM types:
 
 - JSON Schema Types with numeric constraint extensions
 
@@ -443,8 +444,8 @@ The structure of a path in a namespace is defined by the JSON Pointers to the de
 ### Modular Composition
 Modular composition of definitions enables an existing definition (could be in the same file or another file) to become part of a new definition by including a reference to the existing definition within the model namespace. 
 
-#### Use of the "odmType" keyword to re-use a definition
-An existing definition may be used as a template for a new definition, that is, a new definition is created in the target namespace which uses the defined qualities of some existing definition. This pattern will use the keyword "odmType" as a quality of a new definition with a value consisting of a reference to the existing definition that is to be used as a template. Optionally, new qualities may be added and values of optional qualities and quality values may be defined.
+#### Use of the "odmRef" keyword to re-use a definition
+An existing definition may be used as a template for a new definition, that is, a new definition is created in the target namespace which uses the defined qualities of some existing definition. This pattern will use the keyword "odmRef" as a quality of a new definition with a value consisting of a reference to the existing definition that is to be used as a template. Optionally, new qualities may be added and values of optional qualities and quality values may be defined.
 
 #### The "odmComponent" keyword
 One or more existing definition may be used, with its name and its path in the model namespace, as virtual element in a new definition. This has the effect of linking to an instance when the model is deployed as run time. This pattern is useful to link properties, actions, and events from one object to another object, or to link objects together in a complex thing definition. This, along with the odmView class, supports modeling of the OCF "interface type" feature denoted by the "if" query parameter.
@@ -464,7 +465,7 @@ The odmView element provides a composed type that defines a named view, and whic
 |odmComponent|array|no|Array of JSON Pointers to definitions to be included|N/A|
 
 
-odmView may define or include the following odmTypes:
+odmView may contain references to the following ODM types:
 
 - odmThing
 - odmObject
@@ -491,9 +492,9 @@ An odmThing may be composed of odmObjects and other odmThings.
 |$comment|string|no|explanatory comments | N/A |
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition | N/A |
 |odmComponent|array|no|Array of JSON Pointers to definitions to be included|N/A|
-|odmType|object|no|reference to a definition to be used as a template for a new definition|
+|odmRef|object|no|reference to a definition to be used as a template for a new definition|
 
-odmThing may define or include the following odmTypes:
+odmThing may define or include the following ODM types:
 
 - odmView
 - odmThing
@@ -517,9 +518,9 @@ Product definitions may set optional defaults and constant values for specific u
 |$comment|string|no|explanatory comments | N/A |
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition  | N/A |
 |odmComponent|array|no|Array of JSON Pointers to definitions to be included|N/A|
+|odmRef|object|no|reference to a definition to be used as a template for a new definition|
 
-
-odmProduct may define or include the following odmTypes:
+odmProduct may define or include the following ODM types:
 
 - odmThing
 - odmView
