@@ -285,7 +285,7 @@ Properties are used to model elements of state.
 |multipleOf|number|no|indicates the resolution of the number in representation format| N/A |
 |enum|array|no|enumeration constraint| N/A |
 |pattern|string|no|regular expression to constrain a string pattern| N/A |
-|format|string|no|JSON Schema formats| N/A|
+|format|string|no|[JSON Schema formats][]| N/A|
 |minLength|integer|no|shortest length string in octets| N/A |
 |maxLength|integer|no|longest length string in octets| N/A |
 |default|number, boolean, string|no|specifies the default value for initialization| N/A |
@@ -378,7 +378,7 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 |multipleOf|number|no|indicates the resolution of the number in representation format|
 |enum|array of map containing {string:number}|no|enumeration constraint|
 |pattern|string|no|regular expression to constrain a string pattern|
-|format|string|no|JSON Schema formats| N/A|
+|format|string|no|[JSON Schema formats][]| N/A|
 |minLength|integer|no|shortest length string in octets|
 |maxLength|integer|no|longest length string in octets|
 |default|number, boolean, string|no|specifies the default value for initialization|
@@ -533,3 +533,4 @@ odmProduct may define or include the following ODM types:
 
 [SenML unit]: https://www.iana.org/assignments/senml/senml.xhtml#senml-units
 [Relative JSON Pointer]: https://tools.ietf.org/id/draft-handrews-relative-json-pointer-00.html
+[JSON Schema formats]: https://tools.ietf.org/html/draft-handrews-json-schema-validation-02#section-7.3
