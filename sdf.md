@@ -46,8 +46,8 @@ Declaration
         "value": {
           "type": "string",
           "enum": [
-            { "on":1 },
-            { "off":0 }
+            "on",
+            "off"
           ]
         }
       },
@@ -376,7 +376,7 @@ odmData is used for Action parameters, for Event data, and for reusable constrai
 |minimum|number|no|lower limit of value in the representation format|
 |maximum|number|no|upper limit of value in the representation format|
 |multipleOf|number|no|indicates the resolution of the number in representation format|
-|enum|array of map containing {string:number}|no|enumeration constraint|
+|enum|array of any type|no|enumeration constraint|
 |pattern|string|no|regular expression to constrain a string pattern|
 |format|string|no|[JSON Schema formats][]| N/A|
 |minLength|integer|no|shortest length string in octets|
@@ -408,8 +408,8 @@ odmData may define or contain the following ODM types:
         "value": {
           "type": "string",
           "enum": [
-            { "on":1 },
-            { "off":0 }
+            "on",
+            "off"
           ]
         }
       },

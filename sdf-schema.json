@@ -322,13 +322,7 @@
         },
         "enum": {
           "type": "array",
-          "items": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "number"
-            },
-            "minitems": 1
-          }
+          "minItems": 1
         },
         "const": {
           "oneOf": [
