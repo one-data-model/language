@@ -290,7 +290,7 @@
             },
             "subtype":{
               "type": "string",
-              "enum": ["bytestring", "unixtime", "float"]
+              "enum": ["bytestring", "unixtime"]
             },
             "contentFormat": {
               "type": "string"
