@@ -80,7 +80,7 @@ Qualities of the information block are shown in the following table.
 
 ### Definitions block
 
-The Definitions block contains the namespace and default namespace declarations along with one or more type definitions according to the class name keywords for type definitions (object, property, action, event, data).
+The Definitions block contains the namespace and default namespace declarations along with one or more type definitions according to the class name keywords for type definitions (object, thing, property, action, event, data, etc.).
 
 The namespace declaration is a map containing one or more definitions of short names for URIs.
 
