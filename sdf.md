@@ -170,13 +170,15 @@ The keyword "odmRequired" is provided to apply a constraint for which definition
 
 The value of "odmRequired" is an array JSON pointers, each indicating one mandatory definition.
 
+The example in the figure below shows two required elements in the odmObject definition for "temperatureWithAlarm", the odmProperty "temperatureData", and the odmEvent "overTemperatureEvent". The example also shows the use of JSON pointer with "odmRef" to use a pre-existing definition in this definition, for the "alarmType" data (odmOutputData) produced by the odmEvent "overTemperatureEvent".
+
 ``` json
 {
   "odmObject": {
     "temperatureWithAlarm": {
       "odmRequired": [
-        "0/odmData/temperatureData",
-        "0/odmEvent/overTemperatureEvent"
+        "#/odmObject/temperatureWithAlarm/odmData/temperatureData",
+        "#/odmObject/temperatureWithAlarm/odmEvent/overTemperatureEvent"
       ],
       "odmData":{
         "temperatureData": {
@@ -185,13 +187,13 @@ The value of "odmRequired" is an array JSON pointers, each indicating one mandat
       },
       "odmEvent": {
         "overTemperatureEvent": {
-          "outputData": {
+          "odmOutputData": {
             "alarmType": {
               "odmRef": "odm:/#odmData/alarmTypes/quantityAlarms",
-              "const": { "OverTemperature": 3774 }
+              "const": "OverTemperatureAlarm"
             },
             "temperature": {
-              "odmRef": "4/odmData/temperatureData"
+              "odmRef": "#/odmObject/temperatureWithAlarm/odmData/temperatureData"
             }
           }
         }
@@ -199,29 +201,6 @@ The value of "odmRequired" is an array JSON pointers, each indicating one mandat
     }
   }
 }
-```
-
-The above example uses [Relative JSON Pointer][] syntax to point to nearby definitions. 
-
-The prefix of a relative JSON pointer indicates how many levels above the parent element of the JSON Pointer the following path string is relative to.
-
-In this section, the pointer prefix "0" indicates that the following path is relative to the parent element "temperatureWithAlarm". 
-
-```json
-    "temperatureWithAlarm": {
-      "odmRequired": [
-        "0/odmData/temperatureData",
-        "0/odmEvent/overTemperatureEvent"
-      ],
-    }
-```
-
-In this section, the pointer prefix of "4" indicates that the following path is relative to the element four levels above the parent element, in this example pointing to the element at the document-relative path "#/odmObject/temperatureWithAlarm/odmData/temperatureData". 
-
-```json
-            "temperature": {
-              "odmRref": "4/odmData/temperatureData"
-            }
 ```
 
 ## Keywords for type definitions
