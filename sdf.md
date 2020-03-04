@@ -247,7 +247,7 @@ Properties are used to model elements of state.
 |odmRequired|array|no|Array of JSON Pointers to mandatory items in a valid definition | N/A |
 |odmRef|object|no|reference to a definition to be used as a template for a new definition| N/A |
 |readable|boolean|no|Reads are allowed| true |
-|writeable|boolean|no|Writes are allowed| true |
+|writable|boolean|no|Writes are allowed| true |
 |observable|boolean|no| flag to indicate asynchronous notification is available| true |
 |contentFormat|string|no|IANA media type string| N/A |
 |subtype|string|no|subtype enumeration|N/A|
