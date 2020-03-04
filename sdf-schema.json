@@ -249,7 +249,7 @@
             "readable": {
               "type": "boolean"
             },
-            "writeable": {
+            "writable": {
               "type": "boolean"
             },
             "nullable": {
