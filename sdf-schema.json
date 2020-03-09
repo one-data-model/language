@@ -394,6 +394,9 @@
         "maxItems": {
           "type": "number"
         },
+        "uniqueItems": {
+          "type": "boolean"
+        },
         "properties": {
           "type": "object"
         }
