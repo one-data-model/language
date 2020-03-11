@@ -347,6 +347,12 @@
         "maximum": {
           "type": "number"
         },
+        "exclusiveMinimum": {
+          "type": "boolean"
+        },
+        "exclusiveMaximum": {
+          "type": "boolean"
+        },
         "multipleOf": {
           "type": "number"
         },
