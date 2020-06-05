@@ -1,3 +1,16 @@
+# Frozen, now outdated document!
+
+This document was used to develop the Simple Definition Format (SDF)
+for One Data Model definitions.
+With the publication of SDF version 1.0, that development has now moved to:
+
+https://github.com/one-data-model/sdf
+
+The old /language repository, of which this document forms part, is an archive of what happened before that.
+
+
+
+
 # A Simple Definition Format for One Data Model definitions
 
 ## Introduction

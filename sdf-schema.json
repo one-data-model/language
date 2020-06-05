@@ -1,6 +1,6 @@
 {
   "title": "SDF Schema",
-  "description": "JSON Schema for validating SDF instances against the SDF model.",
+  "description": "old, pre-1.0 JSON-schema.org definitions for validating SDF instances against the SDF model.",
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "properties": {
